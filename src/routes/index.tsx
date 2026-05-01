@@ -1,26 +1,44 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect } from "react";
 
 export const Route = createFileRoute("/")({
   component: Index,
+  head: () => ({
+    meta: [
+      { title: "Srilatha & Shashwath — Wedding Invitation · 7 June 2026" },
+      {
+        name: "description",
+        content:
+          "With the blessings of our families, we joyfully invite you to the wedding of Srilatha N S & Shashwath Sriram on 7 June 2026 at Sri Krishnaswamy Kalyana Mandapam, Chennai.",
+      },
+    ],
+  }),
 });
 
-// IMPORTANT: Replace this placeholder. For sites with multiple pages (About, Services, Contact, etc.),
-// create separate route files (about.tsx, services.tsx, contact.tsx) — don't put all pages in this file.
-function PlaceholderIndex() {
+function Index() {
+  useEffect(() => {
+    window.location.replace("/invite.html");
+  }, []);
+
   return (
     <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
+      style={{
+        minHeight: "100vh",
+        display: "grid",
+        placeItems: "center",
+        background: "#FAF0DC",
+        color: "#3D0000",
+        fontFamily: "Georgia, serif",
+      }}
     >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+      <div style={{ textAlign: "center" }}>
+        <p style={{ letterSpacing: "0.3em", marginBottom: "0.5rem" }}>
+          SRILATHA &amp; SHASHWATH
+        </p>
+        <p>
+          Opening invitation… <a href="/invite.html">Click here if it doesn’t load.</a>
+        </p>
+      </div>
     </div>
   );
-}
-
-function Index() {
-  return <PlaceholderIndex />;
 }

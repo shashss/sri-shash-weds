@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Srilatha &amp; Shashwath — Wedding Invitation · 7 June 2026</title>
+<meta name="description" content="With the blessings of our families, we joyfully invite you to the wedding of Srilatha N S &amp; Shashwath Sriram on 7 June 2026 at Sri Krishnaswamy Kalyana Mandapam, Chennai." />
+<meta name="theme-color" content="#3D0000" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;500;600&family=Philosopher:wght@400;700&family=Lora:ital,wght@0,400;0,500;1,400&family=Noto+Serif+Tamil:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red:#3D0000; --crimson:#C0392B; --green:#015041;
+    --gold:#C9942A; --gold-soft:#E0B96A; --ivory:#FDF6E3; --cream:#FAF0DC;
+    --shadow: 0 20px 60px -20px rgba(61,0,0,.45);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Lora',serif;color:var(--red);background:var(--cream);
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(201,148,42,.10), transparent 40%),
+      radial-gradient(circle at 80% 90%, rgba(1,80,65,.08), transparent 45%);
+    overflow-x:hidden;line-height:1.6;
+  }
+  ::selection{background:var(--gold);color:var(--red)}
+
+  /* Scroll progress */
+  #progress{position:fixed;top:0;left:0;height:4px;width:0;
+    background:linear-gradient(90deg,var(--gold),var(--crimson),var(--gold));
+    z-index:9999;box-shadow:0 0 10px var(--gold);transition:width .1s linear}
+
+  /* Floating deepam lamps */
+  .deepam{position:fixed;width:48px;height:auto;pointer-events:none;
+    opacity:0;z-index:50;filter:drop-shadow(0 0 14px rgba(201,148,42,.7));
+    transition:opacity .6s ease}
+  .deepam.show{opacity:.95;animation:flicker 2.6s ease-in-out infinite}
+  @keyframes flicker{0%,100%{filter:drop-shadow(0 0 12px rgba(255,180,80,.7))}
+    50%{filter:drop-shadow(0 0 22px rgba(255,210,120,.95))}}
+
+  /* HERO */
+  .hero{position:relative;min-height:100vh;display:grid;place-items:center;
+    overflow:hidden;text-align:center;padding:6vh 5vw;color:var(--ivory);
+    isolation:isolate}
+  .hero::before{content:"";position:absolute;inset:0;z-index:-2;
+    background:url('/hero/hero-bg.jpg') center/cover no-repeat;
+    transform:scale(1.1);will-change:transform}
+  .hero::after{content:"";position:absolute;inset:0;z-index:-1;
+    background:linear-gradient(180deg, rgba(61,0,0,.55) 0%, rgba(1,80,65,.35) 50%, rgba(61,0,0,.85) 100%)}
+  .invocation{font-family:'Noto Serif Tamil',serif;font-size:clamp(.95rem,1.6vw,1.15rem);
+    color:var(--gold-soft);letter-spacing:.18em;margin-bottom:1.5rem}
+  .invocation .sk{display:block;font-family:'Philosopher',serif;color:#fff;opacity:.9;margin-bottom:.4rem}
+  .couple{font-family:'Cinzel Decorative',serif;font-weight:700;
+    font-size:clamp(2.2rem,6.5vw,5.5rem);line-height:1.15;color:var(--ivory);
+    text-shadow:0 4px 20px rgba(0,0,0,.6), 0 0 30px rgba(201,148,42,.3)}
+  .amp{display:block;font-family:'Cinzel',serif;color:var(--gold);
+    font-size:clamp(1.4rem,3vw,2.4rem);margin:.4rem 0;font-weight:400}
+  .divider{display:flex;align-items:center;justify-content:center;gap:1rem;margin:1.6rem auto;max-width:520px}
+  .divider .line{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+  .divider .ico{color:var(--gold);font-size:1.4rem}
+  .date-line{font-family:'Cinzel',serif;letter-spacing:.35em;font-size:clamp(.9rem,1.6vw,1.15rem);
+    color:var(--gold-soft);text-transform:uppercase}
+  .scroll-cue{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+    color:var(--gold-soft);font-family:'Cinzel',serif;letter-spacing:.3em;font-size:.75rem;
+    animation:bob 2s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,8px)}}
+  .scroll-cue::after{content:"";display:block;width:1px;height:36px;margin:.6rem auto 0;
+    background:linear-gradient(180deg,var(--gold),transparent)}
+
+  /* Sections */
+  section.block{padding:clamp(4rem,10vw,8rem) 1.5rem;position:relative}
+  .container{max-width:1100px;margin:0 auto}
+  .eyebrow{font-family:'Noto Serif Tamil',serif;color:var(--green);letter-spacing:.25em;
+    text-transform:uppercase;font-size:.85rem;text-align:center;margin-bottom:.75rem}
+  h2.section-title{font-family:'Cinzel Decorative',serif;color:var(--red);
+    text-align:center;font-size:clamp(1.8rem,4vw,3rem);margin-bottom:.5rem}
+  .ornament{display:flex;align-items:center;justify-content:center;gap:.8rem;
+    color:var(--gold);margin:.5rem auto 2.5rem;font-size:1.2rem}
+  .ornament .line{width:60px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+
+  /* Reveal */
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .9s ease,transform .9s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  /* Invitation note */
+  .note{background:#fff8e7;border:1px solid rgba(201,148,42,.4);
+    border-radius:8px;padding:clamp(2rem,5vw,3.5rem);box-shadow:var(--shadow);
+    text-align:center;font-family:'Philosopher',serif;font-size:clamp(1rem,1.4vw,1.15rem);
+    color:#4a1a0a;position:relative}
+  .note::before,.note::after{content:"❀";position:absolute;color:var(--gold);font-size:1.4rem}
+  .note::before{top:1rem;left:1rem}.note::after{bottom:1rem;right:1rem;transform:scaleX(-1)}
+  .note p{margin:.6rem 0}
+  .note .families{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1.5rem;text-align:center}
+  .note .fam strong{display:block;font-family:'Cinzel',serif;color:var(--green);letter-spacing:.1em;font-size:.85rem;margin-bottom:.4rem}
+  .note .fam .pn{font-family:'Cinzel Decorative',serif;color:var(--red);font-size:1.05rem;line-height:1.5}
+  @media(max-width:560px){.note .families{grid-template-columns:1fr}}
+
+  /* Couple cards (clip-path arches) */
+  .couple-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+  @media(max-width:760px){.couple-grid{grid-template-columns:1fr}}
+  .arch{background:linear-gradient(180deg,#fff8e7,#faecc7);
+    padding:3rem 1.8rem 2rem;text-align:center;position:relative;
+    clip-path:path('M 0 80 Q 0 0 50% 0 Q 100% 0 100% 80 L 100% 100% L 0 100% Z');
+    -webkit-clip-path:path('M 0 80 Q 0 0 50% 0 Q 100% 0 100% 80 L 100% 100% L 0 100% Z');
+    border:0;box-shadow:var(--shadow);min-height:340px}
+  .arch::before{content:"";position:absolute;inset:8px;border:2px solid var(--gold);
+    border-radius:inherit;clip-path:inherit;-webkit-clip-path:inherit;pointer-events:none;opacity:.55}
+  .arch .role{font-family:'Cinzel',serif;letter-spacing:.4em;color:var(--green);font-size:.78rem;text-transform:uppercase}
+  .arch .name{font-family:'Cinzel Decorative',serif;color:var(--red);
+    font-size:clamp(1.5rem,3vw,2.2rem);margin:.6rem 0 .8rem;line-height:1.2}
+  .arch .lineage{font-family:'Philosopher',serif;color:#5a2010;font-size:.98rem}
+  .arch .lineage em{color:var(--gold);font-style:normal;display:block;margin-top:.2rem;letter-spacing:.05em;font-size:.78rem;font-family:'Cinzel',serif}
+  .arch .quote{margin-top:1rem;font-style:italic;color:#7a3018;font-size:.92rem}
+
+  /* Events */
+  .events{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+  @media(max-width:760px){.events{grid-template-columns:1fr}}
+  .event{background:var(--red);color:var(--ivory);padding:2.5rem 1.8rem;
+    border-radius:6px;text-align:center;position:relative;box-shadow:var(--shadow);
+    border:1px solid rgba(201,148,42,.4)}
+  .event::before,.event::after{content:"";position:absolute;width:40px;height:40px;
+    border:2px solid var(--gold);opacity:.7}
+  .event::before{top:8px;left:8px;border-right:0;border-bottom:0}
+  .event::after{bottom:8px;right:8px;border-left:0;border-top:0}
+  .event .tag{font-family:'Cinzel',serif;color:var(--gold);letter-spacing:.4em;font-size:.78rem;text-transform:uppercase}
+  .event h3{font-family:'Cinzel Decorative',serif;color:var(--ivory);
+    font-size:clamp(1.5rem,3vw,2rem);margin:.6rem 0}
+  .event .when{font-family:'Philosopher',serif;font-size:1.1rem;color:#fff8e7;margin:.4rem 0}
+  .event .when .big{display:block;font-family:'Cinzel',serif;font-size:1.6rem;color:var(--gold-soft);letter-spacing:.15em;margin:.3rem 0}
+  .event .where{font-size:.92rem;opacity:.85;margin-top:.6rem;font-style:italic}
+
+  /* Countdown */
+  .count-wrap{background:linear-gradient(135deg,var(--green),#02715b);
+    padding:clamp(2.5rem,6vw,4rem) 1.5rem;text-align:center;color:var(--ivory);
+    border-top:1px solid var(--gold);border-bottom:1px solid var(--gold)}
+  .countdown{display:inline-grid;grid-template-columns:repeat(4,minmax(70px,1fr));
+    gap:.8rem;margin-top:1.5rem}
+  .cd{background:rgba(0,0,0,.25);border:1px solid var(--gold);
+    border-radius:6px;padding:1rem .6rem;min-width:78px}
+  .cd .num{font-family:'Cinzel',serif;font-size:clamp(1.6rem,4vw,2.6rem);color:var(--gold-soft);font-weight:600}
+  .cd .lbl{font-family:'Cinzel',serif;letter-spacing:.2em;font-size:.7rem;text-transform:uppercase;opacity:.85;margin-top:.3rem}
+
+  /* Venue */
+  .venue-card{background:#fff8e7;border:1px solid rgba(201,148,42,.4);
+    border-radius:8px;padding:2.5rem;box-shadow:var(--shadow);text-align:center}
+  .venue-card h3{font-family:'Cinzel Decorative',serif;color:var(--red);font-size:1.6rem;margin-bottom:.5rem}
+  .venue-card .addr{font-family:'Philosopher',serif;color:#5a2010;font-size:1.05rem;margin-bottom:1.5rem}
+  .btn{display:inline-block;background:linear-gradient(135deg,var(--gold),#a87a1c);
+    color:var(--red);font-family:'Cinzel',serif;letter-spacing:.18em;
+    text-decoration:none;padding:.9rem 2rem;border-radius:4px;
+    text-transform:uppercase;font-size:.85rem;font-weight:600;
+    box-shadow:0 8px 24px -8px rgba(201,148,42,.7);transition:transform .25s ease}
+  .btn:hover{transform:translateY(-2px)}
+  .map-frame{margin-top:2rem;border-radius:8px;overflow:hidden;border:1px solid rgba(201,148,42,.4);box-shadow:var(--shadow)}
+  .map-frame iframe{display:block;width:100%;height:380px;border:0}
+
+  /* Footer */
+  footer{background:var(--red);color:var(--ivory);text-align:center;
+    padding:3rem 1.5rem;border-top:2px solid var(--gold)}
+  footer .mono{font-family:'Cinzel Decorative',serif;font-size:2rem;color:var(--gold);margin-bottom:.6rem}
+  footer .nm{font-family:'Cinzel',serif;letter-spacing:.3em;font-size:.95rem;color:#fff8e7}
+  footer .dt{margin-top:.4rem;font-family:'Philosopher',serif;color:var(--gold-soft);font-style:italic}
+  footer .credit{margin-top:1.5rem;opacity:.6;font-size:.75rem;letter-spacing:.2em;font-family:'Cinzel',serif}
+
+  /* Music toggle */
+  #music-btn{position:fixed;right:18px;bottom:18px;z-index:80;
+    width:54px;height:54px;border-radius:50%;border:1px solid var(--gold);
+    background:var(--red);color:var(--gold);font-size:1.4rem;cursor:pointer;
+    box-shadow:0 8px 24px rgba(0,0,0,.35);display:grid;place-items:center;
+    transition:transform .2s ease,background .2s ease}
+  #music-btn:hover{transform:scale(1.06)}
+  #music-btn.playing{background:var(--gold);color:var(--red);animation:pulse 1.6s ease-in-out infinite}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(201,148,42,.5)}50%{box-shadow:0 0 0 14px rgba(201,148,42,0)}}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<!-- Floating deepam lamps -->
+<img class="deepam" src="/hero/deepam.png" alt="" style="left:5%"  data-speed="0.25" data-start="200">
+<img class="deepam" src="/hero/deepam.png" alt="" style="right:6%" data-speed="0.18" data-start="400">
+<img class="deepam" src="/hero/deepam.png" alt="" style="left:18%" data-speed="0.32" data-start="800">
+<img class="deepam" src="/hero/deepam.png" alt="" style="right:20%" data-speed="0.22" data-start="1200">
+
+<!-- HERO -->
+<header class="hero">
+  <div>
+    <div class="invocation reveal in">
+      <span class="sk">ॐ श्री गणेशाய नमः</span>
+      <span>சுபமுகூர்த்தம் · சுப விவாஹம்</span>
+    </div>
+    <h1 class="couple reveal in">
+      Srilatha N S
+      <span class="amp">~ &amp; ~</span>
+      Shashwath Sriram
+    </h1>
+    <div class="divider reveal in">
+      <span class="line"></span><span class="ico">✦</span><span class="line"></span>
+    </div>
+    <p class="date-line reveal in">07 · 06 · 2026 &nbsp;·&nbsp; Chennai</p>
+  </div>
+  <div class="scroll-cue">Scroll</div>
+</header>
+
+<!-- INVITATION NOTE -->
+<section class="block">
+  <div class="container">
+    <p class="eyebrow reveal">அழைப்பிதழ் · Invitation</p>
+    <h2 class="section-title reveal">With the Blessings of Our Families</h2>
+    <div class="ornament reveal"><span class="line"></span>❦<span class="line"></span></div>
+
+    <div class="note reveal">
+      <p>Together with their families, we joyfully invite you to share in the celebration of love, tradition, and a new beginning as our children unite in matrimony.</p>
+      <div class="families">
+        <div class="fam">
+          <strong>Bride's Parents</strong>
+          <div class="pn">Sivasankaran N<br>&amp; Vijayalakshmi S</div>
+        </div>
+        <div class="fam">
+          <strong>Groom's Parents</strong>
+          <div class="pn">Sriram P<br>&amp; Deepa Shriram</div>
+        </div>
+      </div>
+      <p style="margin-top:1.5rem">request the honour of your presence and blessings on this auspicious occasion.</p>
+    </div>
+  </div>
+</section>
+
+<!-- COUPLE -->
+<section class="block" style="padding-top:0">
+  <div class="container">
+    <p class="eyebrow reveal">மணமக்கள் · The Couple</p>
+    <h2 class="section-title reveal">Two Souls, One Vow</h2>
+    <div class="ornament reveal"><span class="line"></span>✦<span class="line"></span></div>
+
+    <div class="couple-grid">
+      <div class="arch reveal">
+        <div class="role">Bride</div>
+        <div class="name">Srilatha N S</div>
+        <div class="lineage">
+          Daughter of<br>Sivasankaran N &amp; Vijayalakshmi S
+          <em>chennai</em>
+        </div>
+        <p class="quote">"Where there is love, there is light."</p>
+      </div>
+      <div class="arch reveal">
+        <div class="role">Groom</div>
+        <div class="name">Shashwath Sriram</div>
+        <div class="lineage">
+          Son of<br>Sriram P &amp; Deepa Shriram
+          <em>chennai</em>
+        </div>
+        <p class="quote">"Two hearts woven into one destiny."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section class="block">
+  <div class="container">
+    <p class="eyebrow reveal">நிகழ்வுகள் · Celebrations</p>
+    <h2 class="section-title reveal">Save the Dates</h2>
+    <div class="ornament reveal"><span class="line"></span>❦<span class="line"></span></div>
+
+    <div class="events">
+      <div class="event reveal">
+        <div class="tag">Reception</div>
+        <h3>Souvenir Soirée</h3>
+        <div class="when">
+          Saturday<span class="big">06 · June · 2026</span>
+          6:30 PM &nbsp;–&nbsp; 9:00 PM
+        </div>
+        <div class="where">Sri Krishnaswamy Kalyana Mandapam, Chennai</div>
+      </div>
+      <div class="event reveal">
+        <div class="tag">Kalyanam</div>
+        <h3>The Wedding</h3>
+        <div class="when">
+          Sunday<span class="big">07 · June · 2026</span>
+          6:30 AM &nbsp;–&nbsp; 8:30 AM
+        </div>
+        <div class="where">Sri Krishnaswamy Kalyana Mandapam, Chennai</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COUNTDOWN -->
+<section class="count-wrap reveal">
+  <p class="eyebrow" style="color:var(--gold-soft)">The Auspicious Hour Awaits</p>
+  <h2 class="section-title" style="color:var(--ivory)">Counting Down to the Muhurtham</h2>
+  <div class="ornament" style="color:var(--gold-soft)"><span class="line" style="background:linear-gradient(90deg,transparent,var(--gold-soft),transparent)"></span>✦<span class="line" style="background:linear-gradient(90deg,transparent,var(--gold-soft),transparent)"></span></div>
+  <div class="countdown" id="countdown" aria-live="polite">
+    <div class="cd"><div class="num" id="d">--</div><div class="lbl">Days</div></div>
+    <div class="cd"><div class="num" id="h">--</div><div class="lbl">Hours</div></div>
+    <div class="cd"><div class="num" id="m">--</div><div class="lbl">Minutes</div></div>
+    <div class="cd"><div class="num" id="s">--</div><div class="lbl">Seconds</div></div>
+  </div>
+</section>
+
+<!-- VENUE -->
+<section class="block">
+  <div class="container">
+    <p class="eyebrow reveal">தலம் · Venue</p>
+    <h2 class="section-title reveal">Where We Celebrate</h2>
+    <div class="ornament reveal"><span class="line"></span>❀<span class="line"></span></div>
+
+    <div class="venue-card reveal">
+      <h3>Sri Krishnaswamy Kalyana Mandapam</h3>
+      <p class="addr">South Boag Road, T. Nagar, Chennai, Tamil Nadu</p>
+      <a class="btn" href="https://maps.app.goo.gl/esm7RfPDHBf234Cx5" target="_blank" rel="noopener">Open in Google Maps</a>
+      <div class="map-frame">
+        <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps?q=Sri+Krishnaswamy+Kalyana+Mandapam+South+Boag+Road+T+Nagar+Chennai&output=embed"
+          title="Map to Sri Krishnaswamy Kalyana Mandapam"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="mono">S &nbsp;✦&nbsp; S</div>
+  <div class="nm">SRILATHA &nbsp;&amp;&nbsp; SHASHWATH</div>
+  <div class="dt">7 June 2026 · Chennai</div>
+  <div class="credit">With love and gratitude</div>
+</footer>
+
+<!-- Music -->
+<button id="music-btn" aria-label="Toggle background music" title="Toggle music">🎵</button>
+<audio id="music" loop preload="none">
+  <source src="https://cdn.pixabay.com/audio/2022/10/30/audio_347111d654.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+(function(){
+  // Scroll progress
+  const bar = document.getElementById('progress');
+  const onScroll = () => {
+    const h = document.documentElement;
+    const pct = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    bar.style.width = pct + '%';
+    // Hero parallax
+    const hero = document.querySelector('.hero');
+    if (hero) hero.style.setProperty('--p', h.scrollTop + 'px');
+    // Deepam descent
+    const sy = window.scrollY;
+    document.querySelectorAll('.deepam').forEach(el=>{
+      const start = parseFloat(el.dataset.start || 0);
+      const speed = parseFloat(el.dataset.speed || .2);
+      if (sy > start - 600) el.classList.add('show');
+      el.style.transform = `translateY(${Math.max(0,(sy-start)*speed)}px) rotate(${Math.sin(sy/300)*4}deg)`;
+    });
+  };
+  document.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  // Hero parallax via background scale
+  const hero = document.querySelector('.hero');
+  document.addEventListener('scroll', ()=>{
+    const y = window.scrollY;
+    if (y < window.innerHeight) hero.style.backgroundPosition = `center ${y*0.3}px`;
+  }, {passive:true});
+
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  }, {threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // Countdown to 7 June 2026, 06:30 IST
+  const target = new Date('2026-06-07T06:30:00+05:30').getTime();
+  const pad = n => String(n).padStart(2,'0');
+  const d = document.getElementById('d'), h=document.getElementById('h'),
+        m = document.getElementById('m'), s=document.getElementById('s');
+  function tick(){
+    const now = Date.now(); let diff = Math.max(0, target - now);
+    const days = Math.floor(diff/86400000); diff -= days*86400000;
+    const hrs  = Math.floor(diff/3600000);  diff -= hrs*3600000;
+    const mins = Math.floor(diff/60000);    diff -= mins*60000;
+    const secs = Math.floor(diff/1000);
+    d.textContent=pad(days); h.textContent=pad(hrs); m.textContent=pad(mins); s.textContent=pad(secs);
+  }
+  tick(); setInterval(tick,1000);
+
+  // Music toggle
+  const audio = document.getElementById('music');
+  const btn = document.getElementById('music-btn');
+  audio.volume = 0.4;
+  let playing = false;
+  btn.addEventListener('click', async ()=>{
+    try{
+      if (playing){ audio.pause(); btn.textContent='🎵'; btn.classList.remove('playing'); playing=false;
+        localStorage.setItem('inviteMusic','off');
+      } else { await audio.play(); btn.textContent='🔊'; btn.classList.add('playing'); playing=true;
+        localStorage.setItem('inviteMusic','on');
+      }
+    }catch(e){ console.warn('audio blocked',e); }
+  });
+  // Restore preference (only auto-plays after a click anywhere if preferred on)
+  if (localStorage.getItem('inviteMusic')==='on'){
+    const trigger = ()=>{ btn.click(); document.removeEventListener('click',trigger); };
+    document.addEventListener('click',trigger,{once:true});
+  }
+})();
+</script>
+</body>
+</html>
