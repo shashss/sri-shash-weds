@@ -259,213 +259,22 @@
 <!-- ============ HERO ============ -->
 <header class="hero">
 
-  <!-- Reusable SVG defs: peacock + gopuram pillar + florals + palm -->
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-    <defs>
-      <!-- Pillar / gopuram -->
-      <symbol id="pillar" viewBox="0 0 120 480">
-        <!-- base -->
-        <rect x="10" y="440" width="100" height="20" fill="#EFE4C8" stroke="#C9942A" stroke-width="1.2"/>
-        <rect x="20" y="420" width="80" height="20" fill="#F5EAD0" stroke="#C9942A" stroke-width="1"/>
-        <!-- shaft -->
-        <rect x="32" y="120" width="56" height="300" fill="#F5EAD0" stroke="#C9942A" stroke-width="1"/>
-        <!-- shaft inner ridges -->
-        <line x1="44" y1="130" x2="44" y2="410" stroke="#C9942A" stroke-width=".5" opacity=".6"/>
-        <line x1="60" y1="130" x2="60" y2="410" stroke="#C9942A" stroke-width=".5" opacity=".6"/>
-        <line x1="76" y1="130" x2="76" y2="410" stroke="#C9942A" stroke-width=".5" opacity=".6"/>
-        <!-- capital -->
-        <rect x="20" y="100" width="80" height="20" fill="#EFE4C8" stroke="#C9942A" stroke-width="1"/>
-        <!-- dome -->
-        <path d="M20 100 Q60 -10 100 100 Z" fill="#F5EAD0" stroke="#C9942A" stroke-width="1.2"/>
-        <path d="M30 100 Q60 20 90 100" fill="none" stroke="#C9942A" stroke-width=".6" opacity=".7"/>
-        <path d="M40 100 Q60 50 80 100" fill="none" stroke="#C9942A" stroke-width=".5" opacity=".6"/>
-        <!-- finial -->
-        <path d="M55 30 L60 -2 L65 30 Z" fill="#C9942A"/>
-        <circle cx="60" cy="40" r="3" fill="#C9942A"/>
-        <!-- decorative band on base -->
-        <path d="M10 460 L110 460" stroke="#C9942A" stroke-width="1"/>
-        <g fill="#C9942A" opacity=".7">
-          <circle cx="20" cy="450" r="1.5"/><circle cx="35" cy="450" r="1.5"/>
-          <circle cx="50" cy="450" r="1.5"/><circle cx="65" cy="450" r="1.5"/>
-          <circle cx="80" cy="450" r="1.5"/><circle cx="95" cy="450" r="1.5"/>
-        </g>
-      </symbol>
+  <!-- Garland across the top -->
+  <div class="orn garland-top reveal anim-breathe">
+    <img src="/ornaments/floral-garland.png" alt="" />
+  </div>
 
-      <!-- Peacock -->
-      <symbol id="peacock" viewBox="0 0 200 260">
-        <!-- tail feathers fan -->
-        <g opacity=".95">
-          <path d="M100 150 Q40 130 30 70 Q60 90 100 150 Z" fill="#1F6F7A"/>
-          <path d="M100 150 Q60 110 60 50 Q90 90 100 150 Z" fill="#2A8A95"/>
-          <path d="M100 150 Q90 100 100 30 Q110 100 100 150 Z" fill="#1F6F7A"/>
-          <path d="M100 150 Q140 110 140 50 Q110 90 100 150 Z" fill="#2A8A95"/>
-          <path d="M100 150 Q160 130 170 70 Q140 90 100 150 Z" fill="#1F6F7A"/>
-          <!-- eye spots -->
-          <g fill="#C9942A">
-            <circle cx="50" cy="80" r="4"/><circle cx="78" cy="55" r="4"/>
-            <circle cx="100" cy="42" r="4"/><circle cx="122" cy="55" r="4"/>
-            <circle cx="150" cy="80" r="4"/>
-          </g>
-          <g fill="#1F6F7A">
-            <circle cx="50" cy="80" r="2"/><circle cx="78" cy="55" r="2"/>
-            <circle cx="100" cy="42" r="2"/><circle cx="122" cy="55" r="2"/>
-            <circle cx="150" cy="80" r="2"/>
-          </g>
-        </g>
-        <!-- body -->
-        <ellipse cx="100" cy="180" rx="22" ry="34" fill="#1F4F66"/>
-        <!-- neck -->
-        <path d="M100 152 Q108 185 120 215 Q118 222 110 220 Q98 200 92 175 Z" fill="#1F4F66"/>
-        <!-- head -->
-        <circle cx="118" cy="218" r="9" fill="#1F4F66"/>
-        <!-- beak -->
-        <path d="M126 218 L134 220 L126 222 Z" fill="#C9942A"/>
-        <!-- crest -->
-        <g stroke="#1F4F66" stroke-width="1.2" fill="none">
-          <path d="M118 209 Q116 200 119 196"/>
-          <path d="M120 209 Q120 200 124 197"/>
-          <path d="M115 210 Q112 202 113 197"/>
-        </g>
-        <circle cx="119" cy="196" r="1.5" fill="#1F4F66"/>
-        <circle cx="124" cy="197" r="1.5" fill="#1F4F66"/>
-        <circle cx="113" cy="197" r="1.5" fill="#1F4F66"/>
-        <!-- eye -->
-        <circle cx="121" cy="216" r="1.5" fill="#fff"/>
-        <circle cx="121.4" cy="216" r=".7" fill="#000"/>
-        <!-- legs -->
-        <line x1="94" y1="212" x2="90" y2="240" stroke="#7a5a2c" stroke-width="2"/>
-        <line x1="106" y1="212" x2="108" y2="240" stroke="#7a5a2c" stroke-width="2"/>
-      </symbol>
+  <!-- Pillars -->
+  <div class="orn pillar-l reveal-left anim-float"><img src="/ornaments/gopuram-pillar.png" alt="" /></div>
+  <div class="orn pillar-r reveal-right anim-float" style="animation-delay:-3s"><img src="/ornaments/gopuram-pillar.png" alt="" /></div>
 
-      <!-- Hibiscus / pink floral cluster -->
-      <symbol id="florals" viewBox="0 0 200 200">
-        <!-- leaves -->
-        <g fill="#6B8E5A" opacity=".95">
-          <path d="M30 120 Q10 100 20 70 Q40 90 30 120 Z"/>
-          <path d="M170 110 Q190 85 175 55 Q155 80 170 110 Z"/>
-          <path d="M100 30 Q80 10 60 25 Q85 40 100 30 Z"/>
-        </g>
-        <!-- stems -->
-        <g stroke="#6B8E5A" stroke-width="1.4" fill="none" opacity=".8">
-          <path d="M60 160 Q70 120 90 100"/>
-          <path d="M140 160 Q130 120 110 100"/>
-          <path d="M100 170 Q100 130 100 100"/>
-        </g>
-        <!-- flowers -->
-        <g>
-          <!-- f1 -->
-          <g transform="translate(60,80)">
-            <g fill="#E89BB0">
-              <ellipse cx="0" cy="-12" rx="10" ry="14"/>
-              <ellipse cx="11" cy="-4" rx="14" ry="10"/>
-              <ellipse cx="7" cy="11" rx="12" ry="10"/>
-              <ellipse cx="-7" cy="11" rx="12" ry="10"/>
-              <ellipse cx="-11" cy="-4" rx="14" ry="10"/>
-            </g>
-            <circle r="5" fill="#fff5d6"/>
-            <circle r="2.5" fill="#C9942A"/>
-          </g>
-          <!-- f2 -->
-          <g transform="translate(140,75) scale(1.1)">
-            <g fill="#F4B6C8">
-              <ellipse cx="0" cy="-12" rx="10" ry="14"/>
-              <ellipse cx="11" cy="-4" rx="14" ry="10"/>
-              <ellipse cx="7" cy="11" rx="12" ry="10"/>
-              <ellipse cx="-7" cy="11" rx="12" ry="10"/>
-              <ellipse cx="-11" cy="-4" rx="14" ry="10"/>
-            </g>
-            <circle r="5" fill="#fff5d6"/>
-            <circle r="2.5" fill="#C9942A"/>
-          </g>
-          <!-- f3 -->
-          <g transform="translate(100,55) scale(.9)">
-            <g fill="#E89BB0">
-              <ellipse cx="0" cy="-12" rx="10" ry="14"/>
-              <ellipse cx="11" cy="-4" rx="14" ry="10"/>
-              <ellipse cx="7" cy="11" rx="12" ry="10"/>
-              <ellipse cx="-7" cy="11" rx="12" ry="10"/>
-              <ellipse cx="-11" cy="-4" rx="14" ry="10"/>
-            </g>
-            <circle r="5" fill="#fff5d6"/>
-            <circle r="2.5" fill="#C9942A"/>
-          </g>
-          <!-- bud -->
-          <g transform="translate(40,140)" fill="#E89BB0">
-            <ellipse cx="0" cy="0" rx="6" ry="9"/>
-            <path d="M-6 4 Q-2 14 6 4 Z" fill="#6B8E5A"/>
-          </g>
-          <g transform="translate(160,150)" fill="#F4B6C8">
-            <ellipse cx="0" cy="0" rx="6" ry="9"/>
-            <path d="M-6 4 Q-2 14 6 4 Z" fill="#6B8E5A"/>
-          </g>
-        </g>
-      </symbol>
+  <!-- Palm fronds upper corners -->
+  <div class="orn frond-tl reveal-left anim-sway"><img src="/ornaments/palm-frond.png" alt="" /></div>
+  <div class="orn frond-tr reveal-right anim-sway-d"><img src="/ornaments/palm-frond.png" alt="" /></div>
 
-      <!-- Palm fronds -->
-      <symbol id="palm" viewBox="0 0 200 200">
-        <!-- trunk -->
-        <path d="M100 200 Q97 160 100 110 Q103 80 100 60" stroke="#7a5a2c" stroke-width="6" fill="none"/>
-        <g fill="#5a7e4a" opacity=".95">
-          <path d="M100 60 Q40 40 10 70 Q60 60 100 75 Z"/>
-          <path d="M100 60 Q160 40 190 70 Q140 60 100 75 Z"/>
-          <path d="M100 60 Q60 10 30 0 Q70 30 100 70 Z"/>
-          <path d="M100 60 Q140 10 170 0 Q130 30 100 70 Z"/>
-          <path d="M100 60 Q100 10 95 -10 Q105 30 100 70 Z"/>
-        </g>
-        <g stroke="#3e5a33" stroke-width=".8" fill="none" opacity=".7">
-          <path d="M100 60 Q70 60 20 70"/>
-          <path d="M100 60 Q130 60 180 70"/>
-          <path d="M100 60 Q80 30 35 5"/>
-          <path d="M100 60 Q120 30 165 5"/>
-          <path d="M100 60 Q100 20 97 -8"/>
-        </g>
-      </symbol>
-    </defs>
-  </svg>
-
-  <!-- TOP-LEFT corner: pillar + peacock + florals -->
-  <svg class="ornament-svg corner-tl float-y" viewBox="0 0 360 460" aria-hidden="true">
-    <use href="#pillar" x="0" y="-20" width="120" height="480"/>
-    <g class="sway-l" style="transform-origin:90px 200px">
-      <use href="#peacock" x="50" y="160" width="160" height="208"/>
-    </g>
-    <g class="breathe" style="transform-origin:200px 90px">
-      <use href="#florals" x="120" y="0" width="220" height="220"/>
-    </g>
-  </svg>
-
-  <!-- TOP-RIGHT corner: mirrored pillar + peacock + florals -->
-  <svg class="ornament-svg corner-tr float-y" viewBox="0 0 360 460" aria-hidden="true" style="animation-delay:-2s">
-    <use href="#pillar" x="0" y="-20" width="120" height="480"/>
-    <g class="sway-l" style="transform-origin:90px 200px;animation-delay:-1.5s">
-      <use href="#peacock" x="50" y="160" width="160" height="208"/>
-    </g>
-    <g class="breathe" style="transform-origin:200px 90px;animation-delay:-3s">
-      <use href="#florals" x="120" y="0" width="220" height="220"/>
-    </g>
-  </svg>
-
-  <!-- BOTTOM-LEFT corner: pillar base + palm + florals -->
-  <svg class="ornament-svg corner-bl float-y" viewBox="0 0 380 380" aria-hidden="true" style="animation-delay:-4s">
-    <use href="#pillar" x="0" y="-100" width="120" height="480"/>
-    <g class="sway-l" style="transform-origin:230px 250px">
-      <use href="#palm" x="130" y="120" width="240" height="240"/>
-    </g>
-    <g class="breathe" style="transform-origin:120px 320px;animation-delay:-2.5s">
-      <use href="#florals" x="40" y="240" width="160" height="160"/>
-    </g>
-  </svg>
-
-  <!-- BOTTOM-RIGHT corner: mirrored -->
-  <svg class="ornament-svg corner-br float-y" viewBox="0 0 380 380" aria-hidden="true" style="animation-delay:-1s">
-    <use href="#pillar" x="0" y="-100" width="120" height="480"/>
-    <g class="sway-l" style="transform-origin:230px 250px;animation-delay:-3.5s">
-      <use href="#palm" x="130" y="120" width="240" height="240"/>
-    </g>
-    <g class="breathe" style="transform-origin:120px 320px;animation-delay:-1.8s">
-      <use href="#florals" x="40" y="240" width="160" height="160"/>
-    </g>
-  </svg>
+  <!-- Peacocks lower corners -->
+  <div class="orn peacock-l reveal-left anim-sway"><img src="/ornaments/peacock-left.png" alt="" /></div>
+  <div class="orn peacock-r reveal-right anim-sway-d"><img src="/ornaments/peacock-right.png" alt="" /></div>
 
   <!-- Sparkle particles -->
   <span class="spark" style="left:18%;bottom:0;animation-delay:0s"></span>
