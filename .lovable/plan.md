@@ -1,59 +1,95 @@
-# South Indian Wedding Invitation — Srilatha & Shashwath
+# Invitation Update Plan (revised)
 
-A premium, single-page royal South Indian wedding invitation built as one static HTML file, dropped into `public/` so it's served as-is at `/invite.html`. The home route `/` will redirect to it so the preview opens straight into the invitation.
+All edits live in `public/invite.html`.
 
-## Content
+## 1. Remove floating deepam lamps
+- Delete the four `<img class="deepam">` tags.
+- Remove `.deepam` CSS + `@keyframes flicker`.
+- Remove the deepam loop inside the scroll handler.
 
-**Couple**
-- Bride: Srilatha N S — D/o Sivasankaran N & Vijayalakshmi S
-- Groom: Shashwath Sriram — S/o Sriram P & Deepa Shriram
+## 2. Richer scroll animations
+- Keep the single `IntersectionObserver`, but support variants:
+  `reveal` (fade-up), `reveal-left`, `reveal-right`, `reveal-zoom`.
+- Stagger children in `.couple-grid`, `.events`, and `.note .families` via
+  `:nth-child` `transition-delay` (0/150/300 ms).
+- Bride card slides in from left, groom from right; event cards zoom in;
+  countdown fades up; venue card fades up.
 
-**Events**
-- Reception — 6 June 2026, 6:30 PM – 9:00 PM
-- Wedding (Kalyanam) — 7 June 2026, 6:30 AM – 8:30 AM (countdown anchors to this)
+## 3. New hero — light, ornamental, animated (matches reference image)
 
-**Venue (both events)**
-- Sri Krishnaswamy Kalyana Mandapam, South Boag Road, T. Nagar, Chennai
-- Map: https://maps.app.goo.gl/esm7RfPDHBf234Cx5
+Replace the dark photo + red gradient hero with a **light ivory/cream parchment** scene built from layered SVGs/PNGs, in the spirit of the uploaded reference (gopuram pillars, peacocks, pink florals, palm fronds, vintage rose backdrop).
 
-## Page Sections (in order)
+Composition:
 
-1. **Scroll progress bar** — slim gold bar fixed at top.
-2. **Hero (full viewport)** — uploaded reference images layered as backdrop (gopuram + peacocks + deepam + garden), with parallax. Sanskrit/Tamil invocation ("ॐ श्री गणेशाय नमः" / "சுபமுகூர்த்தம்") above. Couple names "Srilatha N S ✦ Shashwath Sriram" in **Cinzel Decorative**, separated by an ornamental gold divider. Date line "07 · 06 · 2026 — Chennai". Subtle scroll-down cue.
-3. **Floating deepam lamps** — fixed-position SVG oil lamps that descend / brighten as the user scrolls (scroll listener + transform).
-4. **Invitation note** — "With the blessings of elders…" intro in Philosopher/Lora, both sets of parents named, request-the-honour line.
-5. **Couple cards** — two clip-path (temple-arch shaped) cards side-by-side: bride and groom names, parents, short tagline. Reveal on scroll via IntersectionObserver.
-6. **Events timeline** — two ornate cards (Reception, Wedding) with date, time, venue. Gold border, kolam corner motifs.
-7. **Live countdown** — DD : HH : MM : SS to 7 June 2026, 6:30 AM IST.
-8. **Venue + map** — venue name, full address, "Open in Google Maps" gold button linking to the provided URL, plus an embedded Google Maps iframe.
-9. **Footer** — couple monogram, names, date, "With love and gratitude".
+```text
+┌──────────────────────────────────────────────┐
+│ ║gopuram   ✿ floral garland top ✿   gopuram║│
+│ ║pillar                                pillar║│
+│ ║+peacock                            peacock+║│
+│ ║                                            ║│
+│ ║          SRILATHA  N  S                    ║│
+│ ║              ~ & ~                         ║│
+│ ║         SHASHWATH SRIRAM                   ║│
+│ ║                                            ║│
+│ ║          07 · 06 · 2026                    ║│
+│ ║                                            ║│
+│ ║palm                                    palm║│
+│ ║+gopuram base       ✿ florals    gopuram   ║│
+└──────────────────────────────────────────────┘
+```
 
-## Interactions
+Build approach (all inline assets, no external photo):
+- **Background**: soft parchment gradient `#FDF6E3 → #FAF0DC → #f3e6c8` with a faint repeating rose-watermark pattern (low-opacity inline SVG of stylized roses, ~6% alpha) — mimics the vintage floral wallpaper.
+- **Corner ornaments (4 inline SVGs)**:
+  - Top-left & bottom-left: gopuram pillar + peacock + pink hibiscus cluster.
+  - Top-right & bottom-right: mirrored gopuram pillar + peacock + palm frond.
+  - Drawn in detailed inline SVG using gold (`#C9942A`), muted teal/peacock blue (`#1F6F7A`), ivory pillars (`#EFE4C8`), pink florals (`#E89BB0`), green leaves (`#6B8E5A`).
+- **Animations** (all CSS, GPU-friendly):
+  - Peacocks: gentle 6s `swayPeacock` (rotate ±2°, translateY ±4px).
+  - Florals: 8s `breathe` (scale 1 ↔ 1.03).
+  - Palm fronds: 7s `windSway` (rotate ±3° from base).
+  - Gopuram: 10s `floatY` (translateY ±5px).
+  - Tiny gold sparkle particles (~10 absolutely-positioned dots) drifting upward via `floatUp` keyframe with staggered delays.
+  - Center monogram divider gets a soft `glow` pulse on the gold ornament.
+- **Foreground (centered)**:
+  - Small gold "श्री" monogram swapped for a simple gold ✦ ornament (since Sanskrit/Tamil text is being removed).
+  - Couple names in **Cinzel Decorative**, color **deep red `#3D0000`** (great contrast on cream).
+  - "& " separator in **gold `#C9942A`**.
+  - Date line in muted green `#015041` with letter-spacing.
+  - Scroll cue at bottom in gold.
 
-- Scroll progress bar (gold) tracking page scroll.
-- Parallax on hero backdrop image and temple SVG layer.
-- Descending deepam lamps tied to scrollY.
-- IntersectionObserver fade/slide-up reveals on every section.
-- Clip-path arch cards for couple + events.
-- **Background music toggle** — fixed bottom-right circular button (🎵 / 🔇) playing a soft nadaswaram/veena loop; muted by default (autoplay policy), persists state in `localStorage`.
-- Live countdown updating every second.
+`public/hero/hero-bg.jpg` will no longer be referenced (file kept on disk, harmless).
 
-## Design System
+## 4. Remove Sanskrit & Tamil greetings
+- Delete the hero `.invocation` block (`ॐ श्री गणेशाय नमः` + `சுபமுகூர்த்தம்`).
+- Strip Tamil eyebrow text from every section: keep `Invitation`, `The Couple`, `Celebrations`, `Venue` (English only).
+- Remove `Noto Serif Tamil` from the Google Fonts URL.
 
-- Fonts (Google Fonts): Cinzel Decorative (couple names, headings), Cinzel (subheads), Philosopher (body accents), Lora (body), Noto Serif Tamil (Tamil lines).
-- Palette: deep red `#3D0000`, crimson `#C0392B`, dark aquamarine `#015041`, gold `#C9942A`, ivory `#FDF6E3`, cream `#FAF0DC`.
-- Texture: subtle cream paper background, gold filigree dividers, kolam corner ornaments (inline SVG).
-- Fully responsive down to 360 px; hero scales, cards stack on mobile.
+## 5. Font color updates (because hero is now light)
+- Hero couple names: `#3D0000` (deep red) with subtle `0 2px 8px rgba(61,0,0,.15)` shadow.
+- Hero "& " amp + ornament: `#C9942A` (gold).
+- Hero date + scroll cue: `#015041` (deep green) — readable on cream.
+- Rest of the page (already on ivory) stays as-is, since current colors already work on light backgrounds.
 
-## Technical Details
+## 6. Autoplay "Vizhi Veekura" by Sai Abhyankar
+Modern browsers block unmuted autoplay until user interaction. Implementation:
+- Embed the official YouTube audio via a hidden `<iframe>`:
+  `https://www.youtube.com/embed/<VIDEO_ID>?autoplay=1&loop=1&playlist=<VIDEO_ID>&controls=0&modestbranding=1`,
+  `allow="autoplay"`, sized 0×0, opacity 0.
+- Attach a one-shot `pointerdown`/`scroll`/`keydown` listener that calls
+  `iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}','*')` to guarantee sound starts at first interaction (covers mobile Safari).
+- Music toggle button (bottom-right) now sends `playVideo` / `pauseVideo` to the iframe instead of controlling `<audio>`. State persists in `localStorage`.
+- The `<audio>` tag and its CDN MP3 source are removed.
 
-- Single file: `public/invite.html` (pure HTML5 + CSS3 + vanilla JS, no frameworks, no build step).
-- Uploaded reference images saved to `public/hero/` and used as layered `background-image`s in the hero (with `object-fit: cover` / `background-size: cover`).
-- Music: a small royalty-free instrumental loop placed at `public/audio/invite-loop.mp3` (placeholder file; user can swap).
-- Map: `<iframe>` Google Maps embed using the venue query, plus a direct link to the provided short URL.
-- `src/routes/index.tsx` updated to immediately redirect to `/invite.html` so the existing preview entry-point shows the invitation. The TanStack route shell stays intact (no other routes touched).
-- No backend, no Lovable Cloud, no env vars needed.
+**Need from you (one input)**: paste the YouTube URL for "Vizhi Veekura — Sai Abhyankar" (e.g. `https://www.youtube.com/watch?v=XXXXXXXXXXX`). I'll extract the 11-char video ID. If you'd rather I pick the top official upload, say "you choose" and I'll wire in what I find — you can swap the ID later in one line.
 
-## Out of Scope
+## 7. Remove decorative lines around parents' names
+In the `.note` block:
+- Delete the intro paragraph ("Together with their families…").
+- Delete the closing paragraph ("…request the honour of your presence…").
+- Keep only: heading + ornament + the two-column families grid (Bride's Parents / Groom's Parents).
 
-- No RSVP form, no nichayathartham or extra events, no grandparents — per your instructions.
+---
+
+## Question
+Please paste the **YouTube URL** for *Vizhi Veekura by Sai Abhyankar* (or reply "you choose"). Everything else I have what I need to implement.
