@@ -49,15 +49,32 @@
   .hero::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
     background:radial-gradient(ellipse at center, transparent 40%, rgba(243,230,200,.55) 100%)}
 
-  /* Ornaments */
-  .ornament-svg{position:absolute;z-index:1;pointer-events:none;will-change:transform}
-  .corner-tl{top:-10px;left:-10px;width:min(34vw,360px)}
-  .corner-tr{top:-10px;right:-10px;width:min(34vw,360px);transform:scaleX(-1)}
-  .corner-bl{bottom:-10px;left:-10px;width:min(36vw,380px)}
-  .corner-br{bottom:-10px;right:-10px;width:min(36vw,380px);transform:scaleX(-1)}
+  /* Ornaments (PNG) */
+  .orn{position:absolute;pointer-events:none;z-index:1;will-change:transform,opacity;
+    filter:drop-shadow(0 6px 14px rgba(61,0,0,.18))}
+  .orn img{width:100%;height:auto;display:block}
+  .pillar-l{top:0;left:-10px;width:min(14vw,150px);height:auto}
+  .pillar-r{top:0;right:-10px;width:min(14vw,150px);height:auto;transform:scaleX(-1)}
+  .peacock-l{bottom:0;left:0;width:min(28vw,300px)}
+  .peacock-r{bottom:0;right:0;width:min(28vw,300px)}
+  .frond-tl{top:-20px;left:8%;width:min(18vw,200px);transform:rotate(-12deg)}
+  .frond-tr{top:-20px;right:8%;width:min(18vw,200px);transform:scaleX(-1) rotate(-12deg)}
+  .garland-top{top:0;left:50%;transform:translateX(-50%);width:min(70vw,720px)}
+  .mandala-tl{top:-2px;left:-2px;width:90px;opacity:.85}
+  .mandala-tr{top:-2px;right:-2px;width:90px;opacity:.85;transform:scaleX(-1)}
+  .mandala-bl{bottom:-2px;left:-2px;width:90px;opacity:.85;transform:scaleY(-1)}
+  .mandala-br{bottom:-2px;right:-2px;width:90px;opacity:.85;transform:scale(-1,-1)}
+  .divider-orn{display:block;margin:0 auto 2rem;width:min(60vw,520px);max-width:100%}
+  .divider-orn img{width:100%;height:auto;display:block;opacity:.9}
+  .parents-frond{position:absolute;top:50%;width:90px;opacity:.85}
+  .parents-frond.l{left:-20px;transform:translateY(-50%) rotate(-15deg)}
+  .parents-frond.r{right:-20px;transform:translateY(-50%) scaleX(-1) rotate(-15deg)}
   @media(max-width:640px){
-    .corner-tl,.corner-tr{width:46vw}
-    .corner-bl,.corner-br{width:50vw}
+    .pillar-l,.pillar-r{width:22vw}
+    .peacock-l,.peacock-r{width:42vw}
+    .frond-tl,.frond-tr{width:30vw}
+    .mandala-tl,.mandala-tr,.mandala-bl,.mandala-br{width:60px}
+    .parents-frond{width:60px}
   }
 
   /* Sparkle particles */
@@ -117,6 +134,16 @@
   .ornament{display:flex;align-items:center;justify-content:center;gap:.8rem;
     color:var(--gold);margin:.5rem auto 2.5rem;font-size:1.2rem}
   .ornament .line{width:60px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+  /* Ornament continuous animations (use translate to avoid clobbering base transforms) */
+  .anim-sway{animation:swayA 7s ease-in-out infinite}
+  .anim-sway-d{animation:swayA 7s ease-in-out infinite;animation-delay:-3s}
+  .anim-float{animation:floatA 9s ease-in-out infinite}
+  .anim-breathe{animation:breatheA 6s ease-in-out infinite}
+  .anim-rotate{animation:rotA 60s linear infinite}
+  @keyframes swayA{0%,100%{translate:0 0;rotate:-1.5deg}50%{translate:0 -4px;rotate:1.5deg}}
+  @keyframes floatA{0%,100%{translate:0 0}50%{translate:0 -8px}}
+  @keyframes breatheA{0%,100%{scale:1}50%{scale:1.03}}
+  @keyframes rotA{to{rotate:360deg}}
 
   /* ============ Reveal animations ============ */
   [class*="reveal"]{opacity:0;transition:opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1)}
@@ -191,7 +218,7 @@
   .cd .lbl{font-family:'Cinzel',serif;letter-spacing:.2em;font-size:.7rem;text-transform:uppercase;opacity:.85;margin-top:.3rem}
 
   /* Venue */
-  .venue-card{background:#fff8e7;border:1px solid rgba(201,148,42,.4);
+  .venue-card{background:#fff8e7;border:1px solid rgba(201,148,42,.4);position:relative;
     border-radius:8px;padding:2.5rem;box-shadow:var(--shadow);text-align:center}
   .venue-card h3{font-family:'Cinzel Decorative',serif;color:var(--red);font-size:1.6rem;margin-bottom:.5rem}
   .venue-card .addr{font-family:'Philosopher',serif;color:#5a2010;font-size:1.05rem;margin-bottom:1.5rem}
@@ -223,6 +250,7 @@
   @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(201,148,42,.5)}50%{box-shadow:0 0 0 14px rgba(201,148,42,0)}}
 
   #yt-frame{position:fixed;left:-9999px;top:-9999px;width:1px;height:1px;border:0;opacity:0;pointer-events:none}
+  #yt-frame iframe{width:1px;height:1px;border:0}
 </style>
 </head>
 <body>
@@ -232,213 +260,22 @@
 <!-- ============ HERO ============ -->
 <header class="hero">
 
-  <!-- Reusable SVG defs: peacock + gopuram pillar + florals + palm -->
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-    <defs>
-      <!-- Pillar / gopuram -->
-      <symbol id="pillar" viewBox="0 0 120 480">
-        <!-- base -->
-        <rect x="10" y="440" width="100" height="20" fill="#EFE4C8" stroke="#C9942A" stroke-width="1.2"/>
-        <rect x="20" y="420" width="80" height="20" fill="#F5EAD0" stroke="#C9942A" stroke-width="1"/>
-        <!-- shaft -->
-        <rect x="32" y="120" width="56" height="300" fill="#F5EAD0" stroke="#C9942A" stroke-width="1"/>
-        <!-- shaft inner ridges -->
-        <line x1="44" y1="130" x2="44" y2="410" stroke="#C9942A" stroke-width=".5" opacity=".6"/>
-        <line x1="60" y1="130" x2="60" y2="410" stroke="#C9942A" stroke-width=".5" opacity=".6"/>
-        <line x1="76" y1="130" x2="76" y2="410" stroke="#C9942A" stroke-width=".5" opacity=".6"/>
-        <!-- capital -->
-        <rect x="20" y="100" width="80" height="20" fill="#EFE4C8" stroke="#C9942A" stroke-width="1"/>
-        <!-- dome -->
-        <path d="M20 100 Q60 -10 100 100 Z" fill="#F5EAD0" stroke="#C9942A" stroke-width="1.2"/>
-        <path d="M30 100 Q60 20 90 100" fill="none" stroke="#C9942A" stroke-width=".6" opacity=".7"/>
-        <path d="M40 100 Q60 50 80 100" fill="none" stroke="#C9942A" stroke-width=".5" opacity=".6"/>
-        <!-- finial -->
-        <path d="M55 30 L60 -2 L65 30 Z" fill="#C9942A"/>
-        <circle cx="60" cy="40" r="3" fill="#C9942A"/>
-        <!-- decorative band on base -->
-        <path d="M10 460 L110 460" stroke="#C9942A" stroke-width="1"/>
-        <g fill="#C9942A" opacity=".7">
-          <circle cx="20" cy="450" r="1.5"/><circle cx="35" cy="450" r="1.5"/>
-          <circle cx="50" cy="450" r="1.5"/><circle cx="65" cy="450" r="1.5"/>
-          <circle cx="80" cy="450" r="1.5"/><circle cx="95" cy="450" r="1.5"/>
-        </g>
-      </symbol>
+  <!-- Garland across the top -->
+  <div class="orn garland-top reveal anim-breathe">
+    <img src="/ornaments/floral-garland.png" alt="" />
+  </div>
 
-      <!-- Peacock -->
-      <symbol id="peacock" viewBox="0 0 200 260">
-        <!-- tail feathers fan -->
-        <g opacity=".95">
-          <path d="M100 150 Q40 130 30 70 Q60 90 100 150 Z" fill="#1F6F7A"/>
-          <path d="M100 150 Q60 110 60 50 Q90 90 100 150 Z" fill="#2A8A95"/>
-          <path d="M100 150 Q90 100 100 30 Q110 100 100 150 Z" fill="#1F6F7A"/>
-          <path d="M100 150 Q140 110 140 50 Q110 90 100 150 Z" fill="#2A8A95"/>
-          <path d="M100 150 Q160 130 170 70 Q140 90 100 150 Z" fill="#1F6F7A"/>
-          <!-- eye spots -->
-          <g fill="#C9942A">
-            <circle cx="50" cy="80" r="4"/><circle cx="78" cy="55" r="4"/>
-            <circle cx="100" cy="42" r="4"/><circle cx="122" cy="55" r="4"/>
-            <circle cx="150" cy="80" r="4"/>
-          </g>
-          <g fill="#1F6F7A">
-            <circle cx="50" cy="80" r="2"/><circle cx="78" cy="55" r="2"/>
-            <circle cx="100" cy="42" r="2"/><circle cx="122" cy="55" r="2"/>
-            <circle cx="150" cy="80" r="2"/>
-          </g>
-        </g>
-        <!-- body -->
-        <ellipse cx="100" cy="180" rx="22" ry="34" fill="#1F4F66"/>
-        <!-- neck -->
-        <path d="M100 152 Q108 185 120 215 Q118 222 110 220 Q98 200 92 175 Z" fill="#1F4F66"/>
-        <!-- head -->
-        <circle cx="118" cy="218" r="9" fill="#1F4F66"/>
-        <!-- beak -->
-        <path d="M126 218 L134 220 L126 222 Z" fill="#C9942A"/>
-        <!-- crest -->
-        <g stroke="#1F4F66" stroke-width="1.2" fill="none">
-          <path d="M118 209 Q116 200 119 196"/>
-          <path d="M120 209 Q120 200 124 197"/>
-          <path d="M115 210 Q112 202 113 197"/>
-        </g>
-        <circle cx="119" cy="196" r="1.5" fill="#1F4F66"/>
-        <circle cx="124" cy="197" r="1.5" fill="#1F4F66"/>
-        <circle cx="113" cy="197" r="1.5" fill="#1F4F66"/>
-        <!-- eye -->
-        <circle cx="121" cy="216" r="1.5" fill="#fff"/>
-        <circle cx="121.4" cy="216" r=".7" fill="#000"/>
-        <!-- legs -->
-        <line x1="94" y1="212" x2="90" y2="240" stroke="#7a5a2c" stroke-width="2"/>
-        <line x1="106" y1="212" x2="108" y2="240" stroke="#7a5a2c" stroke-width="2"/>
-      </symbol>
+  <!-- Pillars -->
+  <div class="orn pillar-l reveal-left anim-float"><img src="/ornaments/gopuram-pillar.png" alt="" /></div>
+  <div class="orn pillar-r reveal-right anim-float" style="animation-delay:-3s"><img src="/ornaments/gopuram-pillar.png" alt="" /></div>
 
-      <!-- Hibiscus / pink floral cluster -->
-      <symbol id="florals" viewBox="0 0 200 200">
-        <!-- leaves -->
-        <g fill="#6B8E5A" opacity=".95">
-          <path d="M30 120 Q10 100 20 70 Q40 90 30 120 Z"/>
-          <path d="M170 110 Q190 85 175 55 Q155 80 170 110 Z"/>
-          <path d="M100 30 Q80 10 60 25 Q85 40 100 30 Z"/>
-        </g>
-        <!-- stems -->
-        <g stroke="#6B8E5A" stroke-width="1.4" fill="none" opacity=".8">
-          <path d="M60 160 Q70 120 90 100"/>
-          <path d="M140 160 Q130 120 110 100"/>
-          <path d="M100 170 Q100 130 100 100"/>
-        </g>
-        <!-- flowers -->
-        <g>
-          <!-- f1 -->
-          <g transform="translate(60,80)">
-            <g fill="#E89BB0">
-              <ellipse cx="0" cy="-12" rx="10" ry="14"/>
-              <ellipse cx="11" cy="-4" rx="14" ry="10"/>
-              <ellipse cx="7" cy="11" rx="12" ry="10"/>
-              <ellipse cx="-7" cy="11" rx="12" ry="10"/>
-              <ellipse cx="-11" cy="-4" rx="14" ry="10"/>
-            </g>
-            <circle r="5" fill="#fff5d6"/>
-            <circle r="2.5" fill="#C9942A"/>
-          </g>
-          <!-- f2 -->
-          <g transform="translate(140,75) scale(1.1)">
-            <g fill="#F4B6C8">
-              <ellipse cx="0" cy="-12" rx="10" ry="14"/>
-              <ellipse cx="11" cy="-4" rx="14" ry="10"/>
-              <ellipse cx="7" cy="11" rx="12" ry="10"/>
-              <ellipse cx="-7" cy="11" rx="12" ry="10"/>
-              <ellipse cx="-11" cy="-4" rx="14" ry="10"/>
-            </g>
-            <circle r="5" fill="#fff5d6"/>
-            <circle r="2.5" fill="#C9942A"/>
-          </g>
-          <!-- f3 -->
-          <g transform="translate(100,55) scale(.9)">
-            <g fill="#E89BB0">
-              <ellipse cx="0" cy="-12" rx="10" ry="14"/>
-              <ellipse cx="11" cy="-4" rx="14" ry="10"/>
-              <ellipse cx="7" cy="11" rx="12" ry="10"/>
-              <ellipse cx="-7" cy="11" rx="12" ry="10"/>
-              <ellipse cx="-11" cy="-4" rx="14" ry="10"/>
-            </g>
-            <circle r="5" fill="#fff5d6"/>
-            <circle r="2.5" fill="#C9942A"/>
-          </g>
-          <!-- bud -->
-          <g transform="translate(40,140)" fill="#E89BB0">
-            <ellipse cx="0" cy="0" rx="6" ry="9"/>
-            <path d="M-6 4 Q-2 14 6 4 Z" fill="#6B8E5A"/>
-          </g>
-          <g transform="translate(160,150)" fill="#F4B6C8">
-            <ellipse cx="0" cy="0" rx="6" ry="9"/>
-            <path d="M-6 4 Q-2 14 6 4 Z" fill="#6B8E5A"/>
-          </g>
-        </g>
-      </symbol>
+  <!-- Palm fronds upper corners -->
+  <div class="orn frond-tl reveal-left anim-sway"><img src="/ornaments/palm-frond.png" alt="" /></div>
+  <div class="orn frond-tr reveal-right anim-sway-d"><img src="/ornaments/palm-frond.png" alt="" /></div>
 
-      <!-- Palm fronds -->
-      <symbol id="palm" viewBox="0 0 200 200">
-        <!-- trunk -->
-        <path d="M100 200 Q97 160 100 110 Q103 80 100 60" stroke="#7a5a2c" stroke-width="6" fill="none"/>
-        <g fill="#5a7e4a" opacity=".95">
-          <path d="M100 60 Q40 40 10 70 Q60 60 100 75 Z"/>
-          <path d="M100 60 Q160 40 190 70 Q140 60 100 75 Z"/>
-          <path d="M100 60 Q60 10 30 0 Q70 30 100 70 Z"/>
-          <path d="M100 60 Q140 10 170 0 Q130 30 100 70 Z"/>
-          <path d="M100 60 Q100 10 95 -10 Q105 30 100 70 Z"/>
-        </g>
-        <g stroke="#3e5a33" stroke-width=".8" fill="none" opacity=".7">
-          <path d="M100 60 Q70 60 20 70"/>
-          <path d="M100 60 Q130 60 180 70"/>
-          <path d="M100 60 Q80 30 35 5"/>
-          <path d="M100 60 Q120 30 165 5"/>
-          <path d="M100 60 Q100 20 97 -8"/>
-        </g>
-      </symbol>
-    </defs>
-  </svg>
-
-  <!-- TOP-LEFT corner: pillar + peacock + florals -->
-  <svg class="ornament-svg corner-tl float-y" viewBox="0 0 360 460" aria-hidden="true">
-    <use href="#pillar" x="0" y="-20" width="120" height="480"/>
-    <g class="sway-l" style="transform-origin:90px 200px">
-      <use href="#peacock" x="50" y="160" width="160" height="208"/>
-    </g>
-    <g class="breathe" style="transform-origin:200px 90px">
-      <use href="#florals" x="120" y="0" width="220" height="220"/>
-    </g>
-  </svg>
-
-  <!-- TOP-RIGHT corner: mirrored pillar + peacock + florals -->
-  <svg class="ornament-svg corner-tr float-y" viewBox="0 0 360 460" aria-hidden="true" style="animation-delay:-2s">
-    <use href="#pillar" x="0" y="-20" width="120" height="480"/>
-    <g class="sway-l" style="transform-origin:90px 200px;animation-delay:-1.5s">
-      <use href="#peacock" x="50" y="160" width="160" height="208"/>
-    </g>
-    <g class="breathe" style="transform-origin:200px 90px;animation-delay:-3s">
-      <use href="#florals" x="120" y="0" width="220" height="220"/>
-    </g>
-  </svg>
-
-  <!-- BOTTOM-LEFT corner: pillar base + palm + florals -->
-  <svg class="ornament-svg corner-bl float-y" viewBox="0 0 380 380" aria-hidden="true" style="animation-delay:-4s">
-    <use href="#pillar" x="0" y="-100" width="120" height="480"/>
-    <g class="sway-l" style="transform-origin:230px 250px">
-      <use href="#palm" x="130" y="120" width="240" height="240"/>
-    </g>
-    <g class="breathe" style="transform-origin:120px 320px;animation-delay:-2.5s">
-      <use href="#florals" x="40" y="240" width="160" height="160"/>
-    </g>
-  </svg>
-
-  <!-- BOTTOM-RIGHT corner: mirrored -->
-  <svg class="ornament-svg corner-br float-y" viewBox="0 0 380 380" aria-hidden="true" style="animation-delay:-1s">
-    <use href="#pillar" x="0" y="-100" width="120" height="480"/>
-    <g class="sway-l" style="transform-origin:230px 250px;animation-delay:-3.5s">
-      <use href="#palm" x="130" y="120" width="240" height="240"/>
-    </g>
-    <g class="breathe" style="transform-origin:120px 320px;animation-delay:-1.8s">
-      <use href="#florals" x="40" y="240" width="160" height="160"/>
-    </g>
-  </svg>
+  <!-- Peacocks lower corners -->
+  <div class="orn peacock-l reveal-left anim-sway"><img src="/ornaments/peacock-left.png" alt="" /></div>
+  <div class="orn peacock-r reveal-right anim-sway-d"><img src="/ornaments/peacock-right.png" alt="" /></div>
 
   <!-- Sparkle particles -->
   <span class="spark" style="left:18%;bottom:0;animation-delay:0s"></span>
@@ -472,8 +309,11 @@
     <p class="eyebrow reveal">Invitation</p>
     <h2 class="section-title reveal">With the Blessings of Our Families</h2>
     <div class="ornament reveal"><span class="line"></span>❦<span class="line"></span></div>
+    <div class="divider-orn reveal-zoom"><img src="/ornaments/floral-garland.png" alt="" /></div>
 
     <div class="note reveal-zoom">
+      <div class="parents-frond l reveal-left anim-sway"><img src="/ornaments/palm-frond.png" alt="" /></div>
+      <div class="parents-frond r reveal-right anim-sway-d"><img src="/ornaments/palm-frond.png" alt="" /></div>
       <div class="families">
         <div class="fam">
           <strong>Bride's Parents</strong>
@@ -494,9 +334,11 @@
     <p class="eyebrow reveal">The Couple</p>
     <h2 class="section-title reveal">Two Souls, One Vow</h2>
     <div class="ornament reveal"><span class="line"></span>✦<span class="line"></span></div>
+    <div class="divider-orn reveal-zoom"><img src="/ornaments/floral-garland.png" alt="" /></div>
 
     <div class="couple-grid">
       <div class="arch reveal-left">
+        <img class="mandala-tl" src="/ornaments/mandala-corner.png" alt="" />
         <div class="role">Bride</div>
         <div class="name">Srilatha N S</div>
         <div class="lineage">
@@ -506,6 +348,7 @@
         <p class="quote">"Where there is love, there is light."</p>
       </div>
       <div class="arch reveal-right">
+        <img class="mandala-tr" src="/ornaments/mandala-corner.png" alt="" />
         <div class="role">Groom</div>
         <div class="name">Shashwath Sriram</div>
         <div class="lineage">
@@ -524,9 +367,12 @@
     <p class="eyebrow reveal">Celebrations</p>
     <h2 class="section-title reveal">Save the Dates</h2>
     <div class="ornament reveal"><span class="line"></span>❦<span class="line"></span></div>
+    <div class="divider-orn reveal-zoom"><img src="/ornaments/floral-garland.png" alt="" /></div>
 
     <div class="events">
       <div class="event reveal-zoom">
+        <img class="mandala-tl" src="/ornaments/mandala-corner.png" alt="" />
+        <img class="mandala-br" src="/ornaments/mandala-corner.png" alt="" />
         <div class="tag">Reception</div>
         <h3>Souvenir Soirée</h3>
         <div class="when">
@@ -536,6 +382,8 @@
         <div class="where">Sri Krishnaswamy Kalyana Mandapam, Chennai</div>
       </div>
       <div class="event reveal-zoom">
+        <img class="mandala-tr" src="/ornaments/mandala-corner.png" alt="" />
+        <img class="mandala-bl" src="/ornaments/mandala-corner.png" alt="" />
         <div class="tag">Kalyanam</div>
         <h3>The Wedding</h3>
         <div class="when">
@@ -567,8 +415,11 @@
     <p class="eyebrow reveal">Venue</p>
     <h2 class="section-title reveal">Where We Celebrate</h2>
     <div class="ornament reveal"><span class="line"></span>❀<span class="line"></span></div>
+    <div class="divider-orn reveal-zoom"><img src="/ornaments/floral-garland.png" alt="" /></div>
 
     <div class="venue-card reveal">
+      <img class="mandala-tl" src="/ornaments/mandala-corner.png" alt="" />
+      <img class="mandala-tr" src="/ornaments/mandala-corner.png" alt="" />
       <h3>Sri Krishnaswamy Kalyana Mandapam</h3>
       <p class="addr">South Boag Road, T. Nagar, Chennai, Tamil Nadu</p>
       <a class="btn" href="https://maps.app.goo.gl/esm7RfPDHBf234Cx5" target="_blank" rel="noopener">Open in Google Maps</a>
@@ -589,12 +440,9 @@
   <div class="credit">With love and gratitude</div>
 </footer>
 
-<!-- Music: hidden YouTube iframe (Vizhi Veechu — Sai Abhyankar) -->
-<iframe id="yt-frame"
-  src="https://www.youtube.com/embed/2k0SqWfDV1c?enablejsapi=1&autoplay=1&loop=1&playlist=2k0SqWfDV1c&controls=0&modestbranding=1&playsinline=1&rel=0"
-  allow="autoplay; encrypted-media"
-  title="Background music"></iframe>
-<button id="music-btn" aria-label="Toggle background music" title="Toggle music">🔊</button>
+<!-- Music: hidden YouTube iframe (Vizhi Veekura — Sai Abhyankkar) -->
+<div id="yt-frame"></div>
+<button id="music-btn" aria-label="Toggle background music" title="Toggle music">🔇</button>
 
 <script>
 (function(){
@@ -627,48 +475,85 @@
   }
   tick(); setInterval(tick,1000);
 
-  // ===== Background music (YouTube iframe) =====
-  const yt = document.getElementById('yt-frame');
+  // ===== Background music (YouTube IFrame API) =====
+  // "Vizhi Veekura" — Sai Abhyankkar (video id 72tCWK3HlaA)
+  const VIDEO_ID = '72tCWK3HlaA';
   const btn = document.getElementById('music-btn');
-  let playing = true;
-  btn.classList.add('playing');
+  let player = null;
+  let unmuted = false;
 
-  const send = (func) => {
+  // load YT API
+  const tag = document.createElement('script');
+  tag.src = 'https://www.youtube.com/iframe_api';
+  document.head.appendChild(tag);
+
+  window.onYouTubeIframeAPIReady = function(){
+    player = new YT.Player('yt-frame', {
+      height: '1', width: '1',
+      videoId: VIDEO_ID,
+      playerVars: {
+        autoplay: 1, controls: 0, loop: 1, playlist: VIDEO_ID,
+        playsinline: 1, modestbranding: 1, rel: 0
+      },
+      events: {
+        onReady: (e) => {
+          // muted autoplay is allowed without gesture
+          try { e.target.mute(); e.target.playVideo(); } catch(err){}
+          // try unmute right away too in case browser allows
+          tryUnmute();
+        },
+        onStateChange: (e) => {
+          if (e.data === YT.PlayerState.ENDED) {
+            try { e.target.playVideo(); } catch(err){}
+          }
+        }
+      }
+    });
+  };
+
+  function tryUnmute(){
+    if (!player || unmuted) return;
     try {
-      yt.contentWindow.postMessage(JSON.stringify({event:'command', func, args:[]}), '*');
+      player.unMute();
+      player.setVolume(70);
+      player.playVideo();
+      // verify
+      setTimeout(() => {
+        if (player && !player.isMuted()) {
+          unmuted = true;
+          btn.textContent = '🔊';
+          btn.classList.add('playing');
+        }
+      }, 250);
     } catch(e){}
-  };
+  }
 
-  // Trigger playback at first user interaction (autoplay-with-sound policy)
-  const kick = () => {
-    send('unMute');
-    send('playVideo');
-    document.removeEventListener('pointerdown', kick);
-    document.removeEventListener('scroll', kick);
-    document.removeEventListener('keydown', kick);
-    document.removeEventListener('touchstart', kick);
+  // Unmute on the first user interaction (browser autoplay policy)
+  const onFirstGesture = () => {
+    tryUnmute();
+    if (unmuted) detach();
   };
-  document.addEventListener('pointerdown', kick, {once:true});
-  document.addEventListener('scroll', kick, {once:true, passive:true});
-  document.addEventListener('keydown', kick, {once:true});
-  document.addEventListener('touchstart', kick, {once:true, passive:true});
+  function detach(){
+    ['pointerdown','keydown','touchstart','scroll','click'].forEach(ev =>
+      document.removeEventListener(ev, onFirstGesture));
+  }
+  ['pointerdown','keydown','touchstart','scroll','click'].forEach(ev =>
+    document.addEventListener(ev, onFirstGesture, {passive:true}));
 
-  btn.addEventListener('click', ()=>{
-    if (playing){
-      send('pauseVideo');
-      btn.textContent='🎵'; btn.classList.remove('playing'); playing=false;
-      localStorage.setItem('inviteMusic','off');
+  btn.addEventListener('click', () => {
+    if (!player) return;
+    if (!unmuted) { tryUnmute(); return; }
+    const state = player.getPlayerState();
+    if (state === YT.PlayerState.PLAYING) {
+      player.pauseVideo();
+      btn.textContent = '🎵';
+      btn.classList.remove('playing');
     } else {
-      send('unMute'); send('playVideo');
-      btn.textContent='🔊'; btn.classList.add('playing'); playing=true;
-      localStorage.setItem('inviteMusic','on');
+      player.playVideo();
+      btn.textContent = '🔊';
+      btn.classList.add('playing');
     }
   });
-
-  if (localStorage.getItem('inviteMusic')==='off'){
-    // user previously paused — honor it
-    setTimeout(()=>{ send('pauseVideo'); btn.textContent='🎵'; btn.classList.remove('playing'); playing=false; }, 600);
-  }
 })();
 </script>
 </body>
