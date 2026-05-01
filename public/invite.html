@@ -475,48 +475,85 @@
   }
   tick(); setInterval(tick,1000);
 
-  // ===== Background music (YouTube iframe) =====
-  const yt = document.getElementById('yt-frame');
+  // ===== Background music (YouTube IFrame API) =====
+  // "Vizhi Veekura" — Sai Abhyankkar (video id 72tCWK3HlaA)
+  const VIDEO_ID = '72tCWK3HlaA';
   const btn = document.getElementById('music-btn');
-  let playing = true;
-  btn.classList.add('playing');
+  let player = null;
+  let unmuted = false;
 
-  const send = (func) => {
+  // load YT API
+  const tag = document.createElement('script');
+  tag.src = 'https://www.youtube.com/iframe_api';
+  document.head.appendChild(tag);
+
+  window.onYouTubeIframeAPIReady = function(){
+    player = new YT.Player('yt-frame', {
+      height: '1', width: '1',
+      videoId: VIDEO_ID,
+      playerVars: {
+        autoplay: 1, controls: 0, loop: 1, playlist: VIDEO_ID,
+        playsinline: 1, modestbranding: 1, rel: 0
+      },
+      events: {
+        onReady: (e) => {
+          // muted autoplay is allowed without gesture
+          try { e.target.mute(); e.target.playVideo(); } catch(err){}
+          // try unmute right away too in case browser allows
+          tryUnmute();
+        },
+        onStateChange: (e) => {
+          if (e.data === YT.PlayerState.ENDED) {
+            try { e.target.playVideo(); } catch(err){}
+          }
+        }
+      }
+    });
+  };
+
+  function tryUnmute(){
+    if (!player || unmuted) return;
     try {
-      yt.contentWindow.postMessage(JSON.stringify({event:'command', func, args:[]}), '*');
+      player.unMute();
+      player.setVolume(70);
+      player.playVideo();
+      // verify
+      setTimeout(() => {
+        if (player && !player.isMuted()) {
+          unmuted = true;
+          btn.textContent = '🔊';
+          btn.classList.add('playing');
+        }
+      }, 250);
     } catch(e){}
-  };
+  }
 
-  // Trigger playback at first user interaction (autoplay-with-sound policy)
-  const kick = () => {
-    send('unMute');
-    send('playVideo');
-    document.removeEventListener('pointerdown', kick);
-    document.removeEventListener('scroll', kick);
-    document.removeEventListener('keydown', kick);
-    document.removeEventListener('touchstart', kick);
+  // Unmute on the first user interaction (browser autoplay policy)
+  const onFirstGesture = () => {
+    tryUnmute();
+    if (unmuted) detach();
   };
-  document.addEventListener('pointerdown', kick, {once:true});
-  document.addEventListener('scroll', kick, {once:true, passive:true});
-  document.addEventListener('keydown', kick, {once:true});
-  document.addEventListener('touchstart', kick, {once:true, passive:true});
+  function detach(){
+    ['pointerdown','keydown','touchstart','scroll','click'].forEach(ev =>
+      document.removeEventListener(ev, onFirstGesture));
+  }
+  ['pointerdown','keydown','touchstart','scroll','click'].forEach(ev =>
+    document.addEventListener(ev, onFirstGesture, {passive:true}));
 
-  btn.addEventListener('click', ()=>{
-    if (playing){
-      send('pauseVideo');
-      btn.textContent='🎵'; btn.classList.remove('playing'); playing=false;
-      localStorage.setItem('inviteMusic','off');
+  btn.addEventListener('click', () => {
+    if (!player) return;
+    if (!unmuted) { tryUnmute(); return; }
+    const state = player.getPlayerState();
+    if (state === YT.PlayerState.PLAYING) {
+      player.pauseVideo();
+      btn.textContent = '🎵';
+      btn.classList.remove('playing');
     } else {
-      send('unMute'); send('playVideo');
-      btn.textContent='🔊'; btn.classList.add('playing'); playing=true;
-      localStorage.setItem('inviteMusic','on');
+      player.playVideo();
+      btn.textContent = '🔊';
+      btn.classList.add('playing');
     }
   });
-
-  if (localStorage.getItem('inviteMusic')==='off'){
-    // user previously paused — honor it
-    setTimeout(()=>{ send('pauseVideo'); btn.textContent='🎵'; btn.classList.remove('playing'); playing=false; }, 600);
-  }
 })();
 </script>
 </body>
