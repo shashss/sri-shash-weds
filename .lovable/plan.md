@@ -1,52 +1,46 @@
-# Ornamental Elements — Generate, Preview, Then Integrate
+## Edits to `public/invite.html`
 
-## Step 1 — Generate the elements (AI image, transparent PNG)
+All changes are in a single file. No new assets, no JS changes.
 
-Using the Nano Banana Pro image model, I'll generate **6 individual ornament PNGs** with transparent backgrounds, in a consistent traditional South-Indian wedding illustration style (gold `#C9942A`, peacock teal `#1F6F7A`, deep red `#3D0000`, soft pink `#E89BB0`, leaf green `#6B8E5A`) on the cream parchment palette already used in the invite.
+### 1. Hero section — remove ornaments
 
-Assets to produce (saved to `public/ornaments/`):
+Delete these blocks (lines ~269–278):
 
-1. **`peacock-left.png`** — single ornate peacock facing right, tail fanned, gold + teal + pink accents, traditional Tanjore/Kalamkari illustration style.
-2. **`peacock-right.png`** — mirror of #1 (facing left).
-3. **`gopuram-pillar.png`** — tall slim temple pillar with tiered roof, ivory + gold detailing.
-4. **`floral-garland.png`** — horizontal hanging garland of pink hibiscus + jasmine + green leaves, for top-of-section dividers.
-5. **`palm-frond.png`** — single curved coconut/areca palm leaf in deep green.
-6. **`mandala-corner.png`** — quarter-circle gold mandala/kolam ornament for section corners.
+- Both `gopuram-pillar.png` images (`.pillar-l`, `.pillar-r`)
+- Both `palm-frond.png` images (`.frond-tl`, `.frond-tr`)
+- The top `floral-garland.png` (`.garland-top`, lines 264–266)
 
-## Step 2 — Show them to you
+Keep the two peacocks (you only asked to remove gopuram + leaves + top floral). If you also want peacocks gone, say so and I'll drop them too.
 
-I will display all 6 PNGs inline in chat (via `presentation-artifact`) for your approval. **No changes to `invite.html` until you say "go".**
+Also clean up the now-unused CSS rules for `.garland-top`, `.pillar-*`, `.frond-tl`, `.frond-tr` so the stylesheet stays tidy.
 
-If any element looks off, I regenerate just that one.
+### 2. "Two Souls, One Vow" section — remove leaf decor
 
-## Step 3 — Integrate (only after approval)
+- Remove the `divider-orn` floral-garland image directly under the heading (line 337). This is the leafy garland appearing in that section's background area.
 
-Replace current inline-SVG hero ornaments with the new PNGs:
+### 3. Bride & Groom — remove quotes
 
-- **Hero**: peacocks bottom-left & bottom-right, gopuram pillars left & right edges, floral garland across the top, palm fronds in lower corners, mandala behind monogram.
-- **Section dividers**: small floral garland between each section (Couple, Celebrations, Venue).
-- **Card corners**: mandala-corner ornaments in the top-left of each event card and the venue card.
-- **Parents block**: small palm fronds flanking the heading (replacing the removed lines you asked to drop earlier — purely decorative, no horizontal rule).
+- Delete the two `<p class="quote">…</p>` lines (348 and 358).
 
-## Step 4 — Scroll animations on every ornament
+### 4. Events section — rename
 
-Extend the existing `IntersectionObserver` to also animate ornaments:
+- Line 376: change `<div class="tag">Reception</div>` → `<div class="tag">Evening</div>`
+- Line 377: change `<h3>Souvenir Soirée</h3>` → `<h3>Reception</h3>`
 
-- Peacocks: `reveal-zoom` + 6s continuous `swayPeacock` after reveal.
-- Garlands: `reveal` (fade-down from top) + 8s `breathe`.
-- Palm fronds: `reveal-left` / `reveal-right` + 7s `windSway`.
-- Mandalas: `reveal-zoom` + 30s slow `rotate` continuous.
-- Pillars: `reveal` (fade-up) + 10s `floatY`.
+### 5. Countdown heading
 
-Stagger sibling ornaments by 150 ms so they cascade into view as you scroll.
+- Line 402: change `Counting Down to the Muhurtham` → `Counting Towards the Wedding`
 
-## Technical notes
+6. Replace the music with   
+ "Walk of the Bride" — Agam (video id p2O6O907fM0)  
+and please start the music from 0:55   
+-----------  
+the elements are not aligned properly throughout the page;  
+sharing the exact set of changes  
 
-- Generation model: `google/gemini-3-pro-image-preview` (Nano Banana Pro — best quality for illustrative work). Each image requested at ~1024px on the long edge, transparent background, "no text, no border, traditional Indian wedding ornament illustration, flat vector style, gold/teal/pink/green palette on white".
-- Saved as PNG under `public/ornaments/`, referenced from `public/invite.html`.
-- All animations CSS-only, GPU-friendly (`transform` + `opacity`), respect `prefers-reduced-motion`.
-- No new npm packages, no framework changes — still a single static HTML file.
 
-## What I need from you
+### Note on "can't select elements"
 
-Just approve this plan. I'll generate the 6 elements, post them in chat for review, and wait for your "go" before touching `invite.html`.
+The hero ornaments use `pointer-events:none` (line 53), so they shouldn't block clicks — but several large absolutely-positioned PNGs overlap the hero text area, which is likely what makes the layout feel cluttered/un-clickable. Removing the gopuram + fronds + top garland (step 1) will restore a clean hero with just the peacocks at the bottom corners.
+
+Reply "go" to apply all six edits.
