@@ -457,8 +457,9 @@
   tick(); setInterval(tick,1000);
 
   // ===== Background music (YouTube IFrame API) =====
-  // "Vizhi Veekura" — Sai Abhyankkar (video id 72tCWK3HlaA)
-  const VIDEO_ID = '72tCWK3HlaA';
+  // "Walk of the Bride" — Agam (video id p2O6O907fM0), start at 0:55
+  const VIDEO_ID = 'p2O6O907fM0';
+  const START_AT = 55;
   const btn = document.getElementById('music-btn');
   let player = null;
   let unmuted = false;
@@ -474,7 +475,7 @@
       videoId: VIDEO_ID,
       playerVars: {
         autoplay: 1, controls: 0, loop: 1, playlist: VIDEO_ID,
-        playsinline: 1, modestbranding: 1, rel: 0
+        playsinline: 1, modestbranding: 1, rel: 0, start: START_AT
       },
       events: {
         onReady: (e) => {
