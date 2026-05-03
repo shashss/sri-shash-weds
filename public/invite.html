@@ -121,7 +121,8 @@
   section.block{padding:clamp(4rem,10vw,8rem) 1.5rem;position:relative}
   .container{max-width:1100px;margin:0 auto}
   .eyebrow{font-family:'Cinzel',serif;color:var(--green);letter-spacing:.35em;
-    text-transform:uppercase;font-size:.78rem;text-align:center;margin-bottom:.75rem}
+    text-transform:uppercase;font-size:.78rem;text-align:center;margin-bottom:.75rem;
+    font-feature-settings:"liga" 0,"clig" 0,"dlig" 0;font-kerning:none;text-indent:.35em}
   h2.section-title{font-family:'Cinzel Decorative',serif;color:var(--red);
     text-align:center;font-size:clamp(1.8rem,4vw,3rem);margin-bottom:.5rem}
   .ornament{display:flex;align-items:center;justify-content:center;gap:.8rem;
@@ -242,7 +243,7 @@
   #music-btn.playing{background:var(--gold);color:var(--red);animation:pulse 1.6s ease-in-out infinite}
   @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(201,148,42,.5)}50%{box-shadow:0 0 0 14px rgba(201,148,42,0)}}
 
-  #yt-frame{position:fixed;left:-9999px;top:-9999px;width:1px;height:1px;border:0;opacity:0;pointer-events:none}
+  #yt-frame{position:fixed;right:0;bottom:0;width:1px;height:1px;border:0;opacity:.01;pointer-events:none;z-index:-1}
   #yt-frame iframe{width:1px;height:1px;border:0}
 </style>
 </head>
@@ -294,8 +295,6 @@
     <div class="divider-orn reveal-zoom"><img src="/ornaments/floral-garland.png" alt="" /></div>
 
     <div class="note reveal-zoom">
-      <div class="parents-frond l reveal-left anim-sway"><img src="/ornaments/palm-frond.png" alt="" /></div>
-      <div class="parents-frond r reveal-right anim-sway-d"><img src="/ornaments/palm-frond.png" alt="" /></div>
       <div class="families">
         <div class="fam">
           <strong>Bride's Parents</strong>
@@ -317,7 +316,7 @@
     <h2 class="section-title reveal">Two Souls, One Vow</h2>
     <div class="ornament reveal"><span class="line"></span>✦<span class="line"></span></div>
 
-    <div class="couple-grid">
+    <div class="couple-grid couple-grid--no-bg">
       <div class="arch reveal-left">
         <img class="mandala-tl" src="/ornaments/mandala-corner.png" alt="" />
         <div class="role">Bride</div>
@@ -396,7 +395,6 @@
     <p class="eyebrow reveal">Venue</p>
     <h2 class="section-title reveal">Where We Celebrate</h2>
     <div class="ornament reveal"><span class="line"></span>❀<span class="line"></span></div>
-    <div class="divider-orn reveal-zoom"><img src="/ornaments/floral-garland.png" alt="" /></div>
 
     <div class="venue-card reveal">
       <img class="mandala-tl" src="/ornaments/mandala-corner.png" alt="" />
