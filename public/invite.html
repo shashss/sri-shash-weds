@@ -53,13 +53,8 @@
   .orn{position:absolute;pointer-events:none;z-index:1;will-change:transform,opacity;
     filter:drop-shadow(0 6px 14px rgba(61,0,0,.18))}
   .orn img{width:100%;height:auto;display:block}
-  .pillar-l{top:0;left:-10px;width:min(14vw,150px);height:auto}
-  .pillar-r{top:0;right:-10px;width:min(14vw,150px);height:auto;transform:scaleX(-1)}
   .peacock-l{bottom:0;left:0;width:min(28vw,300px)}
   .peacock-r{bottom:0;right:0;width:min(28vw,300px)}
-  .frond-tl{top:-20px;left:8%;width:min(18vw,200px);transform:rotate(-12deg)}
-  .frond-tr{top:-20px;right:8%;width:min(18vw,200px);transform:scaleX(-1) rotate(-12deg)}
-  .garland-top{top:0;left:50%;transform:translateX(-50%);width:min(70vw,720px)}
   .mandala-tl{top:-2px;left:-2px;width:90px;opacity:.85}
   .mandala-tr{top:-2px;right:-2px;width:90px;opacity:.85;transform:scaleX(-1)}
   .mandala-bl{bottom:-2px;left:-2px;width:90px;opacity:.85;transform:scaleY(-1)}
@@ -70,9 +65,7 @@
   .parents-frond.l{left:-20px;transform:translateY(-50%) rotate(-15deg)}
   .parents-frond.r{right:-20px;transform:translateY(-50%) scaleX(-1) rotate(-15deg)}
   @media(max-width:640px){
-    .pillar-l,.pillar-r{width:22vw}
     .peacock-l,.peacock-r{width:42vw}
-    .frond-tl,.frond-tr{width:30vw}
     .mandala-tl,.mandala-tr,.mandala-bl,.mandala-br{width:60px}
     .parents-frond{width:60px}
   }
@@ -260,18 +253,7 @@
 <!-- ============ HERO ============ -->
 <header class="hero">
 
-  <!-- Garland across the top -->
-  <div class="orn garland-top reveal anim-breathe">
-    <img src="/ornaments/floral-garland.png" alt="" />
-  </div>
-
-  <!-- Pillars -->
-  <div class="orn pillar-l reveal-left anim-float"><img src="/ornaments/gopuram-pillar.png" alt="" /></div>
-  <div class="orn pillar-r reveal-right anim-float" style="animation-delay:-3s"><img src="/ornaments/gopuram-pillar.png" alt="" /></div>
-
-  <!-- Palm fronds upper corners -->
-  <div class="orn frond-tl reveal-left anim-sway"><img src="/ornaments/palm-frond.png" alt="" /></div>
-  <div class="orn frond-tr reveal-right anim-sway-d"><img src="/ornaments/palm-frond.png" alt="" /></div>
+  <!-- Peacocks lower corners -->
 
   <!-- Peacocks lower corners -->
   <div class="orn peacock-l reveal-left anim-sway"><img src="/ornaments/peacock-left.png" alt="" /></div>
@@ -334,7 +316,6 @@
     <p class="eyebrow reveal">The Couple</p>
     <h2 class="section-title reveal">Two Souls, One Vow</h2>
     <div class="ornament reveal"><span class="line"></span>✦<span class="line"></span></div>
-    <div class="divider-orn reveal-zoom"><img src="/ornaments/floral-garland.png" alt="" /></div>
 
     <div class="couple-grid">
       <div class="arch reveal-left">
@@ -345,7 +326,7 @@
           Daughter of<br>Sivasankaran N &amp; Vijayalakshmi S
           <em>chennai</em>
         </div>
-        <p class="quote">"Where there is love, there is light."</p>
+        
       </div>
       <div class="arch reveal-right">
         <img class="mandala-tr" src="/ornaments/mandala-corner.png" alt="" />
@@ -355,7 +336,7 @@
           Son of<br>Sriram P &amp; Deepa Shriram
           <em>chennai</em>
         </div>
-        <p class="quote">"Two hearts woven into one destiny."</p>
+        
       </div>
     </div>
   </div>
@@ -373,8 +354,8 @@
       <div class="event reveal-zoom">
         <img class="mandala-tl" src="/ornaments/mandala-corner.png" alt="" />
         <img class="mandala-br" src="/ornaments/mandala-corner.png" alt="" />
-        <div class="tag">Reception</div>
-        <h3>Souvenir Soirée</h3>
+        <div class="tag">Evening</div>
+        <h3>Reception</h3>
         <div class="when">
           Saturday<span class="big">06 · June · 2026</span>
           6:30 PM &nbsp;–&nbsp; 9:00 PM
@@ -399,7 +380,7 @@
 <!-- COUNTDOWN -->
 <section class="count-wrap reveal">
   <p class="eyebrow" style="color:var(--gold-soft)">The Auspicious Hour Awaits</p>
-  <h2 class="section-title" style="color:var(--ivory)">Counting Down to the Muhurtham</h2>
+  <h2 class="section-title" style="color:var(--ivory)">Counting Towards the Wedding</h2>
   <div class="ornament" style="color:var(--gold-soft)"><span class="line" style="background:linear-gradient(90deg,transparent,var(--gold-soft),transparent)"></span>✦<span class="line" style="background:linear-gradient(90deg,transparent,var(--gold-soft),transparent)"></span></div>
   <div class="countdown" id="countdown" aria-live="polite">
     <div class="cd"><div class="num" id="d">--</div><div class="lbl">Days</div></div>
@@ -476,8 +457,9 @@
   tick(); setInterval(tick,1000);
 
   // ===== Background music (YouTube IFrame API) =====
-  // "Vizhi Veekura" — Sai Abhyankkar (video id 72tCWK3HlaA)
-  const VIDEO_ID = '72tCWK3HlaA';
+  // "Walk of the Bride" — Agam (video id p2O6O907fM0), start at 0:55
+  const VIDEO_ID = 'p2O6O907fM0';
+  const START_AT = 55;
   const btn = document.getElementById('music-btn');
   let player = null;
   let unmuted = false;
@@ -493,7 +475,7 @@
       videoId: VIDEO_ID,
       playerVars: {
         autoplay: 1, controls: 0, loop: 1, playlist: VIDEO_ID,
-        playsinline: 1, modestbranding: 1, rel: 0
+        playsinline: 1, modestbranding: 1, rel: 0, start: START_AT
       },
       events: {
         onReady: (e) => {
