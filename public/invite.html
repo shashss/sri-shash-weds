@@ -471,6 +471,7 @@
   const btn = document.getElementById('music-btn');
   let player = null;
   let unmuted = false;
+  let started = false;
 
   // load YT API
   const tag = document.createElement('script');
@@ -479,20 +480,23 @@
 
   window.onYouTubeIframeAPIReady = function(){
     player = new YT.Player('yt-frame', {
-      height: '1', width: '1',
+      height: '90', width: '160',
       videoId: VIDEO_ID,
       playerVars: {
         autoplay: 1, controls: 0, loop: 1, playlist: VIDEO_ID,
-        playsinline: 1, modestbranding: 1, rel: 0, start: START_AT
+        playsinline: 1, modestbranding: 1, rel: 0, start: START_AT,
+        enablejsapi: 1, origin: window.location.origin
       },
       events: {
         onReady: (e) => {
-          // muted autoplay is allowed without gesture
-          try { e.target.mute(); e.target.playVideo(); } catch(err){}
-          // try unmute right away too in case browser allows
-          tryUnmute();
+          startMusic(e.target, true);
         },
         onStateChange: (e) => {
+          if (e.data === YT.PlayerState.PLAYING) {
+            started = true;
+            btn.textContent = player && player.isMuted && player.isMuted() ? '🔇' : '🔊';
+            btn.classList.add('playing');
+          }
           if (e.data === YT.PlayerState.ENDED) {
             try { e.target.playVideo(); } catch(err){}
           }
@@ -501,20 +505,38 @@
     });
   };
 
+  function startMusic(target, preferSound){
+    if (!target) return;
+    try {
+      target.setVolume(70);
+      if (preferSound) target.unMute();
+      target.playVideo();
+      setTimeout(() => {
+        if (!player) return;
+        const state = player.getPlayerState ? player.getPlayerState() : null;
+        if (state !== YT.PlayerState.PLAYING) {
+          try { player.mute(); player.playVideo(); } catch(err){}
+        } else if (!player.isMuted || !player.isMuted()) {
+          unmuted = true;
+        }
+      }, 250);
+    } catch(e){}
+  }
+
   function tryUnmute(){
     if (!player || unmuted) return;
     try {
       player.unMute();
       player.setVolume(70);
       player.playVideo();
-      // verify
       setTimeout(() => {
-        if (player && !player.isMuted()) {
+        if (player && (!player.isMuted || !player.isMuted())) {
           unmuted = true;
+          started = true;
           btn.textContent = '🔊';
           btn.classList.add('playing');
         }
-      }, 250);
+      }, 120);
     } catch(e){}
   }
 
