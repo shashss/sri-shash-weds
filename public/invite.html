@@ -476,54 +476,56 @@
   const btn = document.getElementById('music-btn');
   const ytPlayer = document.getElementById('yt-player');
   let unmuted = false;
-  let started = false;
+  let playing = false;
 
   function ytCommand(func, args = []){
     if (!ytPlayer || !ytPlayer.contentWindow) return;
     ytPlayer.contentWindow.postMessage(JSON.stringify({event:'command', func, args}), '*');
   }
 
-  function startMusic(){
-    ytCommand('setVolume', [70]);
-    ytCommand('unMute');
+  function startMuted(){
+    ytCommand('mute');
     ytCommand('playVideo');
-    started = true;
+    playing = true;
+    btn.textContent = '🔈';
+  }
+
+  function unmuteAndPlay(){
+    ytCommand('unMute');
+    ytCommand('setVolume', [70]);
+    ytCommand('playVideo');
     unmuted = true;
+    playing = true;
     btn.textContent = '🔊';
     btn.classList.add('playing');
   }
 
+  // Autoplay muted as soon as the iframe loads (allowed by browsers)
   ytPlayer.addEventListener('load', () => {
-    startMusic();
-    setTimeout(startMusic, 500);
+    startMuted();
+    setTimeout(startMuted, 600);
+    setTimeout(startMuted, 1500);
   });
 
-  function tryUnmute(){
-    if (unmuted) return;
-    startMusic();
-  }
-
-  // Unmute on the first user interaction (browser autoplay policy)
+  // Unmute on the first user interaction
   const onFirstGesture = () => {
-    tryUnmute();
-    if (unmuted) detach();
-  };
-  function detach(){
+    unmuteAndPlay();
     ['pointerdown','keydown','touchstart','scroll','click'].forEach(ev =>
       document.removeEventListener(ev, onFirstGesture));
-  }
+  };
   ['pointerdown','keydown','touchstart','scroll','click'].forEach(ev =>
     document.addEventListener(ev, onFirstGesture, {passive:true}));
 
   btn.addEventListener('click', () => {
-    if (!unmuted) { tryUnmute(); return; }
-    if (started) {
+    if (!unmuted) { unmuteAndPlay(); return; }
+    if (playing) {
       ytCommand('pauseVideo');
-      started = false;
+      playing = false;
       btn.textContent = '🎵';
       btn.classList.remove('playing');
     } else {
-      startMusic();
+      ytCommand('playVideo');
+      playing = true;
       btn.textContent = '🔊';
       btn.classList.add('playing');
     }
