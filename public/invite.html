@@ -183,9 +183,13 @@
   .arch .lineage{font-family:'Philosopher',serif;color:#5a2010;font-size:.98rem}
   .arch .lineage em{color:var(--gold);font-style:normal;display:block;margin-top:.2rem;letter-spacing:.05em;font-size:.78rem;font-family:'Cinzel',serif}
   .arch .quote{margin-top:1rem;font-style:italic;color:#7a3018;font-size:.92rem}
-  .couple-photo{margin:2.5rem auto 0;max-width:760px;border:1px solid rgba(201,148,42,.45);
-    border-radius:8px;overflow:hidden;box-shadow:var(--shadow);background:#fff8e7}
-  .couple-photo img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center}
+  .couple-photo{margin:3rem auto 0;max-width:360px;padding:14px;
+    border:1px solid rgba(201,148,42,.5);border-radius:14px;
+    background:linear-gradient(180deg,#fff8e7,#faecc7);
+    box-shadow:var(--shadow);position:relative}
+  .couple-photo::before{content:"";position:absolute;inset:6px;border:1px solid rgba(201,148,42,.35);border-radius:10px;pointer-events:none}
+  .couple-photo img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:center;border-radius:8px}
+  @media(max-width:560px){.couple-photo{max-width:78vw}}
 
   /* Events */
   .events{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
