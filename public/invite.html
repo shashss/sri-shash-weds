@@ -429,8 +429,10 @@
   <div class="credit">With love and gratitude</div>
 </footer>
 
-<!-- Music: hidden YouTube iframe (Vizhi Veekura — Sai Abhyankkar) -->
-<div id="yt-frame"></div>
+<!-- Music: hidden YouTube iframe -->
+<div id="yt-frame">
+  <iframe id="yt-player" title="Vaibhavam background music" allow="autoplay; encrypted-media" src="https://www.youtube.com/embed/f6NeP3Czazk?autoplay=1&mute=0&loop=1&playlist=f6NeP3Czazk&playsinline=1&controls=0&rel=0&modestbranding=1&enablejsapi=1"></iframe>
+</div>
 <button id="music-btn" aria-label="Toggle background music" title="Toggle music">🔇</button>
 
 <script>
@@ -464,80 +466,35 @@
   }
   tick(); setInterval(tick,1000);
 
-  // ===== Background music (YouTube IFrame API) =====
-  // "Vaibhavam | Walk of the Bride" — Agam
-  const VIDEO_ID = 'f6NeP3Czazk';
-  const START_AT = 0;
+  // ===== Background music =====
   const btn = document.getElementById('music-btn');
-  let player = null;
+  const ytPlayer = document.getElementById('yt-player');
   let unmuted = false;
   let started = false;
 
-  // load YT API
-  const tag = document.createElement('script');
-  tag.src = 'https://www.youtube.com/iframe_api';
-  document.head.appendChild(tag);
-
-  window.onYouTubeIframeAPIReady = function(){
-    player = new YT.Player('yt-frame', {
-      height: '90', width: '160',
-      videoId: VIDEO_ID,
-      playerVars: {
-        autoplay: 1, controls: 0, loop: 1, playlist: VIDEO_ID,
-        playsinline: 1, modestbranding: 1, rel: 0, start: START_AT,
-        enablejsapi: 1, origin: window.location.origin
-      },
-      events: {
-        onReady: (e) => {
-          startMusic(e.target, true);
-        },
-        onStateChange: (e) => {
-          if (e.data === YT.PlayerState.PLAYING) {
-            started = true;
-            btn.textContent = player && player.isMuted && player.isMuted() ? '🔇' : '🔊';
-            btn.classList.add('playing');
-          }
-          if (e.data === YT.PlayerState.ENDED) {
-            try { e.target.playVideo(); } catch(err){}
-          }
-        }
-      }
-    });
-  };
-
-  function startMusic(target, preferSound){
-    if (!target) return;
-    try {
-      target.setVolume(70);
-      if (preferSound) target.unMute();
-      target.playVideo();
-      setTimeout(() => {
-        if (!player) return;
-        const state = player.getPlayerState ? player.getPlayerState() : null;
-        if (state !== YT.PlayerState.PLAYING) {
-          try { player.mute(); player.playVideo(); } catch(err){}
-        } else if (!player.isMuted || !player.isMuted()) {
-          unmuted = true;
-        }
-      }, 250);
-    } catch(e){}
+  function ytCommand(func, args = []){
+    if (!ytPlayer || !ytPlayer.contentWindow) return;
+    ytPlayer.contentWindow.postMessage(JSON.stringify({event:'command', func, args}), '*');
   }
 
+  function startMusic(){
+    ytCommand('setVolume', [70]);
+    ytCommand('unMute');
+    ytCommand('playVideo');
+    started = true;
+    unmuted = true;
+    btn.textContent = '🔊';
+    btn.classList.add('playing');
+  }
+
+  ytPlayer.addEventListener('load', () => {
+    startMusic();
+    setTimeout(startMusic, 500);
+  });
+
   function tryUnmute(){
-    if (!player || unmuted) return;
-    try {
-      player.unMute();
-      player.setVolume(70);
-      player.playVideo();
-      setTimeout(() => {
-        if (player && (!player.isMuted || !player.isMuted())) {
-          unmuted = true;
-          started = true;
-          btn.textContent = '🔊';
-          btn.classList.add('playing');
-        }
-      }, 120);
-    } catch(e){}
+    if (unmuted) return;
+    startMusic();
   }
 
   // Unmute on the first user interaction (browser autoplay policy)
@@ -553,15 +510,14 @@
     document.addEventListener(ev, onFirstGesture, {passive:true}));
 
   btn.addEventListener('click', () => {
-    if (!player) return;
     if (!unmuted) { tryUnmute(); return; }
-    const state = player.getPlayerState();
-    if (state === YT.PlayerState.PLAYING) {
-      player.pauseVideo();
+    if (started) {
+      ytCommand('pauseVideo');
+      started = false;
       btn.textContent = '🎵';
       btn.classList.remove('playing');
     } else {
-      player.playVideo();
+      startMusic();
       btn.textContent = '🔊';
       btn.classList.add('playing');
     }
