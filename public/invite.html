@@ -94,7 +94,7 @@
     font-size:clamp(2.1rem,6.4vw,5rem);line-height:1.18;color:var(--red);
     text-shadow:0 2px 10px rgba(61,0,0,.12)}
   .amp{display:block;font-family:'Cinzel',serif;color:var(--gold);
-    font-size:clamp(1.4rem,3vw,2.4rem);margin:.4rem 0;font-weight:400;letter-spacing:.2em}
+    font-size:clamp(1.15rem,2.4vw,1.8rem);margin:.5rem 0;font-weight:500;letter-spacing:.38em;text-transform:uppercase}
   .divider{display:flex;align-items:center;justify-content:center;gap:1rem;margin:1.6rem auto;max-width:520px}
   .divider .line{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
   .divider .ico{color:var(--gold);font-size:1.4rem}
@@ -120,11 +120,12 @@
   /* ============ Sections ============ */
   section.block{padding:clamp(4rem,10vw,8rem) 1.5rem;position:relative}
   .container{max-width:1100px;margin:0 auto}
-  .eyebrow{font-family:'Cinzel',serif;color:var(--green);letter-spacing:.35em;
+  .eyebrow{font-family:'Cinzel',serif;color:var(--green);letter-spacing:.45em;word-spacing:.28em;
     text-transform:uppercase;font-size:.78rem;text-align:center;margin-bottom:.75rem;
-    font-feature-settings:"liga" 0,"clig" 0,"dlig" 0;font-kerning:none;text-indent:.35em}
+    font-feature-settings:"liga" 0,"clig" 0,"dlig" 0,"kern" 0;font-kerning:none;text-indent:.45em}
   h2.section-title{font-family:'Cinzel Decorative',serif;color:var(--red);
-    text-align:center;font-size:clamp(1.8rem,4vw,3rem);margin-bottom:.5rem}
+    text-align:center;font-size:clamp(1.8rem,4vw,3rem);margin-bottom:.5rem;
+    font-feature-settings:"liga" 0,"clig" 0,"dlig" 0,"kern" 0;font-kerning:none}
   .ornament{display:flex;align-items:center;justify-content:center;gap:.8rem;
     color:var(--gold);margin:.5rem auto 2.5rem;font-size:1.2rem}
   .ornament .line{width:60px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
@@ -182,6 +183,9 @@
   .arch .lineage{font-family:'Philosopher',serif;color:#5a2010;font-size:.98rem}
   .arch .lineage em{color:var(--gold);font-style:normal;display:block;margin-top:.2rem;letter-spacing:.05em;font-size:.78rem;font-family:'Cinzel',serif}
   .arch .quote{margin-top:1rem;font-style:italic;color:#7a3018;font-size:.92rem}
+  .couple-photo{margin:2.5rem auto 0;max-width:760px;border:1px solid rgba(201,148,42,.45);
+    border-radius:8px;overflow:hidden;box-shadow:var(--shadow);background:#fff8e7}
+  .couple-photo img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center}
 
   /* Events */
   .events{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
@@ -195,7 +199,8 @@
   .event::after{bottom:8px;right:8px;border-left:0;border-top:0}
   .event .tag{font-family:'Cinzel',serif;color:var(--gold);letter-spacing:.4em;font-size:.78rem;text-transform:uppercase}
   .event h3{font-family:'Cinzel Decorative',serif;color:var(--ivory);
-    font-size:clamp(1.5rem,3vw,2rem);margin:.6rem 0}
+    font-size:clamp(1.5rem,3vw,2rem);margin:.6rem 0;
+    font-feature-settings:"liga" 0,"clig" 0,"dlig" 0,"kern" 0;font-kerning:none}
   .event .when{font-family:'Philosopher',serif;font-size:1.1rem;color:#fff8e7;margin:.4rem 0}
   .event .when .big{display:block;font-family:'Cinzel',serif;font-size:1.6rem;color:var(--gold-soft);letter-spacing:.15em;margin:.3rem 0}
   .event .where{font-size:.92rem;opacity:.85;margin-top:.6rem;font-style:italic}
@@ -222,6 +227,7 @@
     text-transform:uppercase;font-size:.85rem;font-weight:600;
     box-shadow:0 8px 24px -8px rgba(201,148,42,.7);transition:transform .25s ease}
   .btn:hover{transform:translateY(-2px)}
+  .venue-actions{display:flex;justify-content:center;align-items:center;gap:.9rem;flex-wrap:wrap}
   .map-frame{margin-top:2rem;border-radius:8px;overflow:hidden;border:1px solid rgba(201,148,42,.4);box-shadow:var(--shadow)}
   .map-frame iframe{display:block;width:100%;height:380px;border:0}
 
@@ -243,8 +249,8 @@
   #music-btn.playing{background:var(--gold);color:var(--red);animation:pulse 1.6s ease-in-out infinite}
   @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(201,148,42,.5)}50%{box-shadow:0 0 0 14px rgba(201,148,42,0)}}
 
-  #yt-frame{position:fixed;right:0;bottom:0;width:1px;height:1px;border:0;opacity:.01;pointer-events:none;z-index:-1}
-  #yt-frame iframe{width:1px;height:1px;border:0}
+  #yt-frame{position:fixed;left:0;bottom:0;width:160px;height:90px;border:0;opacity:.001;pointer-events:none;z-index:0;overflow:hidden}
+  #yt-frame iframe{width:160px;height:90px;border:0}
 </style>
 </head>
 <body>
@@ -275,7 +281,7 @@
     <div class="glyph reveal in">✦ ❀ ✦</div>
     <h1 class="couple reveal in">
       Srilatha N S
-      <span class="amp">~ &amp; ~</span>
+      <span class="amp">weds</span>
       Shashwath Sriram
     </h1>
     <div class="divider reveal in">
@@ -338,6 +344,9 @@
         
       </div>
     </div>
+    <figure class="couple-photo reveal-zoom">
+      <img src="/couple-photo.jpg" alt="Srilatha and Shashwath" loading="lazy" />
+    </figure>
   </div>
 </section>
 
@@ -401,7 +410,10 @@
       <img class="mandala-tr" src="/ornaments/mandala-corner.png" alt="" />
       <h3>Sri Krishnaswamy Kalyana Mandapam</h3>
       <p class="addr">South Boag Road, T. Nagar, Chennai, Tamil Nadu</p>
-      <a class="btn" href="https://maps.app.goo.gl/esm7RfPDHBf234Cx5" target="_blank" rel="noopener">Open in Google Maps</a>
+      <div class="venue-actions">
+        <a class="btn" href="https://maps.app.goo.gl/esm7RfPDHBf234Cx5" target="_blank" rel="noopener">Open Google Maps</a>
+        <a class="btn" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Sri%20weds%20Shash&dates=20260606T130000Z/20260607T030000Z&location=Sri%20Krishnaswamy%20Kalyana%20Mandapam%2C%20South%20Boag%20Road%2C%20T.%20Nagar%2C%20Chennai%2C%20Tamil%20Nadu&details=Reception%20on%206%20June%202026%20and%20wedding%20on%207%20June%202026" target="_blank" rel="noopener">Add to Calendar</a>
+      </div>
       <div class="map-frame">
         <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
           src="https://www.google.com/maps?q=Sri+Krishnaswamy+Kalyana+Mandapam+South+Boag+Road+T+Nagar+Chennai&output=embed"
@@ -419,8 +431,10 @@
   <div class="credit">With love and gratitude</div>
 </footer>
 
-<!-- Music: hidden YouTube iframe (Vizhi Veekura — Sai Abhyankkar) -->
-<div id="yt-frame"></div>
+<!-- Music: hidden YouTube iframe -->
+<div id="yt-frame">
+  <iframe id="yt-player" title="Vaibhavam background music" allow="autoplay; encrypted-media" src="https://www.youtube.com/embed/f6NeP3Czazk?autoplay=1&mute=0&loop=1&playlist=f6NeP3Czazk&playsinline=1&controls=0&rel=0&modestbranding=1&enablejsapi=1"></iframe>
+</div>
 <button id="music-btn" aria-label="Toggle background music" title="Toggle music">🔇</button>
 
 <script>
@@ -454,58 +468,35 @@
   }
   tick(); setInterval(tick,1000);
 
-  // ===== Background music (YouTube IFrame API) =====
-  // "Vaibhavam | Walk of the Bride" — Agam
-  const VIDEO_ID = 'f6NeP3Czazk';
-  const START_AT = 0;
+  // ===== Background music =====
   const btn = document.getElementById('music-btn');
-  let player = null;
+  const ytPlayer = document.getElementById('yt-player');
   let unmuted = false;
+  let started = false;
 
-  // load YT API
-  const tag = document.createElement('script');
-  tag.src = 'https://www.youtube.com/iframe_api';
-  document.head.appendChild(tag);
+  function ytCommand(func, args = []){
+    if (!ytPlayer || !ytPlayer.contentWindow) return;
+    ytPlayer.contentWindow.postMessage(JSON.stringify({event:'command', func, args}), '*');
+  }
 
-  window.onYouTubeIframeAPIReady = function(){
-    player = new YT.Player('yt-frame', {
-      height: '1', width: '1',
-      videoId: VIDEO_ID,
-      playerVars: {
-        autoplay: 1, controls: 0, loop: 1, playlist: VIDEO_ID,
-        playsinline: 1, modestbranding: 1, rel: 0, start: START_AT
-      },
-      events: {
-        onReady: (e) => {
-          // muted autoplay is allowed without gesture
-          try { e.target.mute(); e.target.playVideo(); } catch(err){}
-          // try unmute right away too in case browser allows
-          tryUnmute();
-        },
-        onStateChange: (e) => {
-          if (e.data === YT.PlayerState.ENDED) {
-            try { e.target.playVideo(); } catch(err){}
-          }
-        }
-      }
-    });
-  };
+  function startMusic(){
+    ytCommand('setVolume', [70]);
+    ytCommand('unMute');
+    ytCommand('playVideo');
+    started = true;
+    unmuted = true;
+    btn.textContent = '🔊';
+    btn.classList.add('playing');
+  }
+
+  ytPlayer.addEventListener('load', () => {
+    startMusic();
+    setTimeout(startMusic, 500);
+  });
 
   function tryUnmute(){
-    if (!player || unmuted) return;
-    try {
-      player.unMute();
-      player.setVolume(70);
-      player.playVideo();
-      // verify
-      setTimeout(() => {
-        if (player && !player.isMuted()) {
-          unmuted = true;
-          btn.textContent = '🔊';
-          btn.classList.add('playing');
-        }
-      }, 250);
-    } catch(e){}
+    if (unmuted) return;
+    startMusic();
   }
 
   // Unmute on the first user interaction (browser autoplay policy)
@@ -521,15 +512,14 @@
     document.addEventListener(ev, onFirstGesture, {passive:true}));
 
   btn.addEventListener('click', () => {
-    if (!player) return;
     if (!unmuted) { tryUnmute(); return; }
-    const state = player.getPlayerState();
-    if (state === YT.PlayerState.PLAYING) {
-      player.pauseVideo();
+    if (started) {
+      ytCommand('pauseVideo');
+      started = false;
       btn.textContent = '🎵';
       btn.classList.remove('playing');
     } else {
-      player.playVideo();
+      startMusic();
       btn.textContent = '🔊';
       btn.classList.add('playing');
     }
