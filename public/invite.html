@@ -122,10 +122,10 @@
   .container{max-width:1100px;margin:0 auto}
   .eyebrow{font-family:'Cinzel',serif;color:var(--green);letter-spacing:.45em;word-spacing:.28em;
     text-transform:uppercase;font-size:.78rem;text-align:center;margin-bottom:.75rem;
-    font-feature-settings:"liga" 0,"clig" 0,"dlig" 0,"kern" 0;font-kerning:none;text-indent:.45em}
+    font-feature-settings:"liga" 0,"clig" 0,"dlig" 0,"hlig" 0,"calt" 0,"kern" 0;font-variant-ligatures:none;font-kerning:none;text-indent:.45em}
   h2.section-title{font-family:'Cinzel Decorative',serif;color:var(--red);
-    text-align:center;font-size:clamp(1.8rem,4vw,3rem);margin-bottom:.5rem;
-    font-feature-settings:"liga" 0,"clig" 0,"dlig" 0,"kern" 0;font-kerning:none}
+    text-align:center;font-size:clamp(1.8rem,4vw,3rem);margin-bottom:.5rem;letter-spacing:.04em;
+    font-feature-settings:"liga" 0,"clig" 0,"dlig" 0,"hlig" 0,"calt" 0,"kern" 0;font-variant-ligatures:none;font-kerning:none}
   .ornament{display:flex;align-items:center;justify-content:center;gap:.8rem;
     color:var(--gold);margin:.5rem auto 2.5rem;font-size:1.2rem}
   .ornament .line{width:60px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
@@ -183,9 +183,13 @@
   .arch .lineage{font-family:'Philosopher',serif;color:#5a2010;font-size:.98rem}
   .arch .lineage em{color:var(--gold);font-style:normal;display:block;margin-top:.2rem;letter-spacing:.05em;font-size:.78rem;font-family:'Cinzel',serif}
   .arch .quote{margin-top:1rem;font-style:italic;color:#7a3018;font-size:.92rem}
-  .couple-photo{margin:2.5rem auto 0;max-width:760px;border:1px solid rgba(201,148,42,.45);
-    border-radius:8px;overflow:hidden;box-shadow:var(--shadow);background:#fff8e7}
-  .couple-photo img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center}
+  .couple-photo{margin:3rem auto 0;max-width:360px;padding:14px;
+    border:1px solid rgba(201,148,42,.5);border-radius:14px;
+    background:linear-gradient(180deg,#fff8e7,#faecc7);
+    box-shadow:var(--shadow);position:relative}
+  .couple-photo::before{content:"";position:absolute;inset:6px;border:1px solid rgba(201,148,42,.35);border-radius:10px;pointer-events:none}
+  .couple-photo img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:center;border-radius:8px}
+  @media(max-width:560px){.couple-photo{max-width:78vw}}
 
   /* Events */
   .events{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
@@ -199,8 +203,8 @@
   .event::after{bottom:8px;right:8px;border-left:0;border-top:0}
   .event .tag{font-family:'Cinzel',serif;color:var(--gold);letter-spacing:.4em;font-size:.78rem;text-transform:uppercase}
   .event h3{font-family:'Cinzel Decorative',serif;color:var(--ivory);
-    font-size:clamp(1.5rem,3vw,2rem);margin:.6rem 0;
-    font-feature-settings:"liga" 0,"clig" 0,"dlig" 0,"kern" 0;font-kerning:none}
+    font-size:clamp(1.5rem,3vw,2rem);margin:.6rem 0;letter-spacing:.04em;
+    font-feature-settings:"liga" 0,"clig" 0,"dlig" 0,"hlig" 0,"calt" 0,"kern" 0;font-variant-ligatures:none;font-kerning:none}
   .event .when{font-family:'Philosopher',serif;font-size:1.1rem;color:#fff8e7;margin:.4rem 0}
   .event .when .big{display:block;font-family:'Cinzel',serif;font-size:1.6rem;color:var(--gold-soft);letter-spacing:.15em;margin:.3rem 0}
   .event .where{font-size:.92rem;opacity:.85;margin-top:.6rem;font-style:italic}
@@ -433,7 +437,7 @@
 
 <!-- Music: hidden YouTube iframe -->
 <div id="yt-frame">
-  <iframe id="yt-player" title="Vaibhavam background music" allow="autoplay; encrypted-media" src="https://www.youtube.com/embed/f6NeP3Czazk?autoplay=1&mute=0&loop=1&playlist=f6NeP3Czazk&playsinline=1&controls=0&rel=0&modestbranding=1&enablejsapi=1"></iframe>
+  <iframe id="yt-player" title="Vaibhavam background music" allow="autoplay; encrypted-media" src="https://www.youtube.com/embed/f6NeP3Czazk?autoplay=1&mute=1&loop=1&playlist=f6NeP3Czazk&playsinline=1&controls=0&rel=0&modestbranding=1&enablejsapi=1"></iframe>
 </div>
 <button id="music-btn" aria-label="Toggle background music" title="Toggle music">🔇</button>
 
@@ -472,54 +476,56 @@
   const btn = document.getElementById('music-btn');
   const ytPlayer = document.getElementById('yt-player');
   let unmuted = false;
-  let started = false;
+  let playing = false;
 
   function ytCommand(func, args = []){
     if (!ytPlayer || !ytPlayer.contentWindow) return;
     ytPlayer.contentWindow.postMessage(JSON.stringify({event:'command', func, args}), '*');
   }
 
-  function startMusic(){
-    ytCommand('setVolume', [70]);
-    ytCommand('unMute');
+  function startMuted(){
+    ytCommand('mute');
     ytCommand('playVideo');
-    started = true;
+    playing = true;
+    btn.textContent = '🔈';
+  }
+
+  function unmuteAndPlay(){
+    ytCommand('unMute');
+    ytCommand('setVolume', [70]);
+    ytCommand('playVideo');
     unmuted = true;
+    playing = true;
     btn.textContent = '🔊';
     btn.classList.add('playing');
   }
 
+  // Autoplay muted as soon as the iframe loads (allowed by browsers)
   ytPlayer.addEventListener('load', () => {
-    startMusic();
-    setTimeout(startMusic, 500);
+    startMuted();
+    setTimeout(startMuted, 600);
+    setTimeout(startMuted, 1500);
   });
 
-  function tryUnmute(){
-    if (unmuted) return;
-    startMusic();
-  }
-
-  // Unmute on the first user interaction (browser autoplay policy)
+  // Unmute on the first user interaction
   const onFirstGesture = () => {
-    tryUnmute();
-    if (unmuted) detach();
-  };
-  function detach(){
+    unmuteAndPlay();
     ['pointerdown','keydown','touchstart','scroll','click'].forEach(ev =>
       document.removeEventListener(ev, onFirstGesture));
-  }
+  };
   ['pointerdown','keydown','touchstart','scroll','click'].forEach(ev =>
     document.addEventListener(ev, onFirstGesture, {passive:true}));
 
   btn.addEventListener('click', () => {
-    if (!unmuted) { tryUnmute(); return; }
-    if (started) {
+    if (!unmuted) { unmuteAndPlay(); return; }
+    if (playing) {
       ytCommand('pauseVideo');
-      started = false;
+      playing = false;
       btn.textContent = '🎵';
       btn.classList.remove('playing');
     } else {
-      startMusic();
+      ytCommand('playVideo');
+      playing = true;
       btn.textContent = '🔊';
       btn.classList.add('playing');
     }
