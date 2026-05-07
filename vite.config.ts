@@ -1,13 +1,14 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
-  // This tells TanStack to create a static version of your site
+  // This tells the TanStack engine to build static HTML files
   tanstack: {
     prerender: {
       enabled: true,
+      routes: ["/"], // Add other pages here if you have them, e.g., ["/", "/venue"]
     },
   },
-  // This ensures your images and styles load at the correct URL
+  // This ensures your images/links work on your GitHub URL
   vite: {
     base: '/sri-shash-weds/', 
   },
