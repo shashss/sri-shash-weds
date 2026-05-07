@@ -38,7 +38,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Check if your build outputs to .output/public or dist
-          path: './.output/public' 
+          path: './dist/client' 
 
       - name: Deploy to GitHub Pages
         id: deployment
